@@ -19,10 +19,8 @@
                  <!-- 觸發category_sidebar同步active品項 -->
                  <router-link class="nav-link" :to="{name:'Category',params:{category:item.nameEn}}">{{item.categoryName }}</router-link>
                   </li>
-                <!-- <router-link class="nav-link" :to="`/products/${item.nameEn}`">{{item.categoryName }}</router-link>   -->
                   <li class="nav-item" @click="bgblur=false">
                         <router-link class="nav-link" :to="{name:'Login'}">後台登入</router-link>
-                        <!-- router-link的 to儘量以name命名 -->
                  </li>
   
             
@@ -88,7 +86,7 @@ export default {
         //關掉dropdown
         // this.$router.push(`/products/${category}`)
         this.$emit('SourceClick')
-        //先觸發至父層再通過父層觸發父層的router-view
+        //先觸發至父層dashboard再通過父層觸發router-view
 
        },
        login(){

@@ -192,8 +192,9 @@ export default {
 
         },
         goRouter(){
-          //接收組件navbar_collapse的觸發更新並傳至router-view中
-          this.$refs['target'].AllProducts()  
+          //接收組件navbar_collapse的觸發更新並操作router-link中category的方法
+          this.$refs['target'].getProducts() 
+          console.log("") 
 
         }
         

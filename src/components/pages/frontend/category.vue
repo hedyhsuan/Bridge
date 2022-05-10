@@ -10,7 +10,7 @@
       <div class="container product-wrap">
         <div class="row" >
           <div class="col-md-3">
-            <CategorySidebar @getProduct="AllProducts" :category="category"></CategorySidebar>
+            <CategorySidebar @getProduct="getProducts" :category="category"></CategorySidebar>
             <!-- 點擊後更新頁面 -->
           
           </div>
@@ -22,7 +22,7 @@
             v-on="$listeners"
               ></productlist>
             <div class="col-12" v-show="pagination">
-              <pagination :page= pagination @switchPage="AllProducts"></pagination>
+              <!-- <pagination :page= pagination @switchPage="AllProducts"></pagination> -->
               <!-- 將此頁的data pagination動態的存進page中,子頁面再用prop接收 -->
               <!-- @switchPage是pagination這個component向外觸發此實體getProduct()的媒介小鈴鐺 --> 
             </div>
@@ -41,7 +41,7 @@
 import pagination from "../../pagination.vue";
 import productlist from "../../productlist";
 import CategorySidebar from "../../category_sidebar"
-import {getProductsAPI} from "../../../api/api"
+import {getProductsAPI,getSortProductsAPI} from "../../../api/api"
 
 export default {
 
@@ -67,12 +67,19 @@ export default {
       //TODO
       //測試封裝axios
       getProducts(){
-        getProductsAPI()
-         .then(res=>console.log(res.data.products))
-         .cathch(err=>console.log(err))
-      },
-    
+        this.category=this.$route.params.category
+        if (this.category==='allproduct'){
+           getProductsAPI().then((res)=>{
+            this.products=res.data.products;
+            this.pagination=res.data.pagination;
+           console.log(this.pagination)})
+         .catch(err=>console.log(err))
+        }else{
+          this.SortProduct()
 
+        }
+       
+      },
   
     // AllProducts(page=1){
     //   const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products?page=${page}`;
@@ -93,27 +100,44 @@ export default {
  
     // }, 
     SortProduct(){
-      const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products/all`;
-      const vm = this
-      vm.isLoading=true;
-      this.$http.get(api).then((response) => {
-      vm.isLoading=false;
-       vm.allProducts=response.data.products;
-       vm.products=[];
-       vm.pagination={},
-       //因為頁面不會刷新所以要把原本的位置清空
-       vm.allProducts.forEach((item)=>{
-         if(item.category == vm.category){
-           vm.products.push(item)
-         }else if(vm.category==='sale'){
-           if(item.original_price!==item.price){
-           vm.products.push(item)
-         }
-         }
-       })
-      //  console.log(vm.products)
-    })
+      getSortProductsAPI().then((res)=>{
+        this.allProducts=res.data.products;
+        this.products=[];
+         //把原本的資料清空
+        this.allProducts.forEach((item)=>{
+          if(item.category == this.category){
+            this.products.push(item)
+          }else if(this.category ==='sale' ){
+            if(this.original_price !== item.price){
+              vm.products.push(item)
+              }
+          }
+        })
+      })
+      .catch(err=>console.log(err))
     }
+
+    // SortProduct(){
+    //   const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products/all`;
+    //   const vm = this
+    //   vm.isLoading=true;
+    //   this.$http.get(api).then((response) => {
+    //   vm.isLoading=false;
+    //    vm.allProducts=response.data.products;
+    //    vm.products=[];
+    //    vm.pagination={},
+    //    //因為頁面不會刷新所以要把原本的位置清空
+    //    vm.allProducts.forEach((item)=>{
+    //      if(item.category == vm.category){
+    //        vm.products.push(item)
+    //      }else if(vm.category==='sale'){
+    //        if(item.original_price!==item.price){
+    //        vm.products.push(item)
+    //      }
+    //      }
+    //    })
+    // })
+    // }
 
     },
 

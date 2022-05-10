@@ -12,6 +12,11 @@ export function getProductsAPI(params){
     return http.get(`${resquest}api/${process.env.CUSTOMPATH}/products?page=${params}`)
     //params是頁面中才會傳入的預設頁面參數
 }
+export function getSortProductsAPI(){
+    return http.get(`${resquest}api/${process.env.CUSTOMPATH}/products/all`)
+    //params是頁面中才會傳入的預設頁面參數
+}
+
 
 // post請求
 export function postFormAPI(params){
