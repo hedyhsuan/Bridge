@@ -108,11 +108,12 @@ export default {
           if(item.category == this.category){
             this.products.push(item)
           }else if(this.category ==='sale' ){
-            if(this.original_price !== item.price){
-              vm.products.push(item)
+            if(item.original_price !== item.price){
+              this.products.push(item)
               }
           }
         })
+        console.log(this.products)
       })
       .catch(err=>console.log(err))
     }
