@@ -192,7 +192,7 @@
 
 <script>
 import pagination from "../../pagination"
-// import {getBsProductsAPI,addBsProductAPI,updateBsProductAPI} from "../../../api/api"
+import {getBsProductsAPI,addBsProductAPI,updateBsProductAPI} from "../../../api/api"
 export default {
     components:{
       pagination
@@ -379,14 +379,14 @@ export default {
     }
     },
     created() {
-     const token = document.cookie.replace(
-     /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-     "$1"
-   );
+  //    const token = document.cookie.replace(
+  //    /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+  //    "$1"
+  //  );
   
-     if (token === "") return
-     //如果token沒有內容就直接return結束，若有就往下寫
-     this.axios.defaults.headers.common["Authorization"] = token;
+  //    if (token === "") return
+  //    //如果token沒有內容就直接return結束，若有就往下寫
+  //    this.axios.defaults.headers.common["Authorization"] = token;
      this.getProducts();
  },
 

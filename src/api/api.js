@@ -21,9 +21,9 @@ export function getProductAPI(id){
 //     return http.get(`${resquest}api/${process.env.CUSTOMPATH}/products/all`)
     
 // }
-// export function getBsProductsAPI(page){
-//     return axios.get(`${resquest}api/${process.env.CUSTOMPATH}/admin/products?page=${page}`)  
-// }
+export function getBsProductsAPI(page){
+    return get(`${resquest}api/${process.env.CUSTOMPATH}/admin/products?page=${page}`)  
+}
 
 
 
@@ -33,13 +33,13 @@ export function signinAPI(data){
     return post(`${resquest}admin/signin`,data)
 }
 //登出
-export function logoutAPI(){
-    return http.post(`${resquest}admin/logout`)
-}
+// export function logoutAPI(){
+//     return http.post(`${resquest}admin/logout`)
+// }
 //新增後台商品
-export function addBsProductAPI(params){
-    return http.post(`${resquest}api/${process.env.CUSTOMPATH}/admin/product`,params)
-}
+// export function addBsProductAPI(params){
+//     return http.post(`${resquest}api/${process.env.CUSTOMPATH}/admin/product`,params)
+// }
 
 
 // put 請求

@@ -61,7 +61,7 @@ service.interceptors.response.use(response => {
   } 
   return Promise.resolve(error.response)
 })
-
+//封裝成方法調用
 export function get(url,params){
   return service.get(url,params)
 }
