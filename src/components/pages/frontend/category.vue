@@ -22,7 +22,7 @@
             v-on="$listeners"
               ></productlist>
             <div class="col-12" v-show="pagination">
-              <!-- <pagination :page= pagination @switchPage="AllProducts"></pagination> -->
+              <pagination :page= pagination @switchPage="getProducts"></pagination>
               <!-- 將此頁的data pagination動態的存進page中,子頁面再用prop接收 -->
               <!-- @switchPage是pagination這個component向外觸發此實體getProduct()的媒介小鈴鐺 --> 
             </div>
@@ -41,7 +41,7 @@
 import pagination from "../../pagination.vue";
 import productlist from "../../productlist";
 import CategorySidebar from "../../category_sidebar"
-import {getProductsAPI,getSortProductsAPI} from "../../../api/api"
+import {getProductsAPI} from "../../../api/api"
 
 export default {
 
@@ -66,13 +66,14 @@ export default {
     methods: {
       //TODO
       //測試封裝axios
-      getProducts(){
+      getProducts(page){
         this.category=this.$route.params.category
         if (this.category==='allproduct'){
-           getProductsAPI().then((res)=>{
+           getProductsAPI(page).then((res)=>{
             this.products=res.data.products;
             this.pagination=res.data.pagination;
-           console.log(this.pagination)})
+          //  console.log("get",res)
+           })
          .catch(err=>console.log(err))
         }else{
           this.SortProduct()

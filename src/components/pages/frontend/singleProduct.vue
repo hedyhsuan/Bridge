@@ -129,6 +129,7 @@
 <script>
 import $ from 'jquery';
 import Carousel from "../../carousel_slide.vue"
+import {getProductAPI} from "../../../api/api"
 
 export default {
 
@@ -151,24 +152,36 @@ export default {
   },
   methods: {
     getProduct(){
-      const vm=this; 
+      const vm=this;
       let id=vm.$route.params.id
-      const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/product/${id}`;
-      vm.isLoading=true;
-
-      this.$http.get(api).then((response) => {
-    
-      vm.product=response.data.product;
-      vm.category=vm.product.category;
-      vm.productId=id;
-      // console.log(vm.productId)
-
-      this.$set(vm.product, 'num', 1) 
-      //num 本身不存在於 Vue 中，而是被後面添加的，要用＄set加進資料庫避免部份商品的數量無法被更動
-        vm.isLoading=false;
+      getProductAPI(id).then((res)=>{
+        vm.product=res.data.product;
+        vm.category=vm.product.category;
+        vm.productId=id;
+        this.$set(vm.product, 'num', 1) 
 
       })
+
     },
+    // getProduct(){
+    //   const vm=this; 
+    //   let id=vm.$route.params.id
+    //   const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/product/${id}`;
+    //   vm.isLoading=true;
+
+    //   this.$http.get(api).then((response) => {
+    
+    //   vm.product=response.data.product;
+    //   vm.category=vm.product.category;
+    //   vm.productId=id;
+    //   // console.log(vm.productId)
+
+    //   this.$set(vm.product, 'num', 1) 
+    //   //num 本身不存在於 Vue 中，而是被後面添加的，要用＄set加進資料庫避免部份商品的數量無法被更動
+    //     vm.isLoading=false;
+
+    //   })
+    // },
     btnPlus(){
       this.product.num++;
 

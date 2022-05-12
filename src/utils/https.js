@@ -13,7 +13,8 @@ const http ={
             method: 'get',
             url:url
         }
-        if(params) config.params = params
+        if(params) 
+        config.params = params
         return request(config)
     },
     post(url,params){
@@ -21,7 +22,8 @@ const http ={
             method: 'post',
             url:url
         }
-        if(params) config.data = params
+        if(params) 
+        config.data = params
         return request(config)
     },
     put(url,params){
@@ -29,7 +31,8 @@ const http ={
             method: 'put',
             url:url
         }
-        if(params) config.params = params
+        if(params) 
+        config.data = params
         return request(config)
     },
     delete(url,params){
@@ -37,7 +40,8 @@ const http ={
             method: 'delete',
             url:url
         }
-        if(params) config.params = params
+        if(params) 
+        config.params = params
         return request(config)
     }
 }

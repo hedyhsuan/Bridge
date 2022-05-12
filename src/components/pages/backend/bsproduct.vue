@@ -52,7 +52,7 @@
            </tbody>
 
           </table>
-          <pagination :page= pagination @switchPage="getProducts"></pagination>
+          <!-- <pagination :page= pagination @switchPage="getProducts"></pagination> -->
       <!-- 將此頁的data pagination動態的存進page中,子頁面再用prop接收 -->
       <!-- @switchPage是pagination這個component向外觸發此實體getProduct()的媒介小鈴鐺 -->
       
@@ -192,7 +192,7 @@
 
 <script>
 import pagination from "../../pagination"
-
+// import {getBsProductsAPI,addBsProductAPI,updateBsProductAPI} from "../../../api/api"
 export default {
     components:{
       pagination
@@ -213,30 +213,58 @@ export default {
         }
     },
     methods: {
-      getProducts(page=1){
-        const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/products?page=${page}`;
+      getProducts(page){
         const vm=this;
-        vm.isLoading=true;
-        this.$http.get(api).then((response) => {
-          vm.isLoading=false;
-        vm.products=response.data.products;
-    
-        vm.pagination=response.data.pagination;
+          // vm.isLoading=true;
+        getBsProductsAPI(page).then((res)=>{
+          // vm.isLoading=false;
+          if(res.data.success){
+            vm.products=res.data.products;
+            console.log(vm.products)
+            vm.pagination=res.data.pagination;
+          }else{
+            console.log(res)
+          }
+        })
+        .catch(err=>console.log(err))
 
-    })
       },
+    //   getProducts(page=1){
+    //     const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/products?page=${page}`;
+    //     const vm=this;
+    //     vm.isLoading=true;
+    //     this.$http.get(api).then((response) => {
+    //       vm.isLoading=false;
+    //       if(response.data.success){
+    //           vm.products=response.data.products;
+    //           console.log(vm.products)
+    //           vm.pagination=response.data.pagination;
+    //       }else{
+    //         console.log(response)
+    //       }
+    // })
+    //   },
 
     logout(){
-      const api=`${process.env.APIPATH}logout`;
-      const vm=this;
-      this.$http.post(api).then((response) => {
-      // console.log(response.data);
-      if(response.data.success){
-          vm.$router.push("/admin/login")
-         }
-      })
+       logoutAPI().then((res)=>{
+           if(response.data.success){
+             this.$router.push("/admin/login")
+           }
+       })
+       .catch(err=>console.log(err))
+    },
+
+    // logout(){
+    //   const api=`${process.env.APIPATH}logout`;
+    //   const vm=this;
+    //   this.$http.post(api).then((response) => {
+    //   // console.log(response.data);
+    //   if(response.data.success){
+    //       vm.$router.push("/admin/login")
+    //      }
+    //   })
             
-      },
+    //   },
 
     openModal(isNew,item){
       //若是現有的資料則先帶入內容
@@ -245,19 +273,42 @@ export default {
           this.isNew=true
 
       }else{
-          // this.tempProduct=item;
-          //物件傳參考的特性會讓item的資料重疊
           this.tempProduct=Object.assign({},item);
-          //ES6寫法，會把後面指定的item寫進前方的{}裡再存進tempProduct,避免傳參考
+          //ES6寫法，淺拷貝，避免item資料重疊
       }
       $("#productModal").modal("show");
     },
 
     openDel(item){
       this.tempProduct=Object.assign({},item);
-      console.log(item);
       $("#delProductModal").modal("show")
     },
+
+    // updateProduct(){
+    //   let vm=this;
+    //   if(vm.isNew){
+    //     addBsProductAPI({data:vm.tempProduct}).then((res)=>{
+    //       if (res.data.success){
+    //          $("#productModal").modal("hide");
+    //          vm.getProducts();
+    //       }else{
+    //          console.log("新增失敗")
+    //       }
+    //     })
+    //     .catch(err=>console.log(err))
+    //   }else{
+    //     updateBsProductAPI(vm.tempProduct.id,{data:vm.tempProduct}).then((res)=>{
+    //       console.log(res)
+    //       if (res.data.success){
+    //          $("#productModal").modal("hide");
+    //          vm.getProducts();
+    //       }else{
+    //          console.log("更新失敗")
+    //       }
+    //     })
+    //   }
+
+    // },
 
     updateProduct(){
       let api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product`;
@@ -270,8 +321,9 @@ export default {
         
       }
       this.$http[httpMethod](api,{data:vm.tempProduct}).then((response) => {
-      //上傳的內容要完全符合後台資料的格，因為tempProduct是在後台資料的{data:}中，上傳也要相同的格式
+      //tempProduct是在後台資料的{data:}中，上傳也要相同的格式
       vm.isLoading=false;
+      console.log(response)
       if (response.data.success){
           $("#productModal").modal("hide");
           vm.getProducts();
@@ -327,10 +379,11 @@ export default {
     }
     },
     created() {
-   const token = document.cookie.replace(
+     const token = document.cookie.replace(
      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
      "$1"
    );
+  
      if (token === "") return
      //如果token沒有內容就直接return結束，若有就往下寫
      this.axios.defaults.headers.common["Authorization"] = token;
