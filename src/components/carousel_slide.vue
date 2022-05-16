@@ -32,6 +32,7 @@
 
 <script>
 import carousel from 'vue-owl-carousel'
+import {getAllProductsAPI} from '../api/api'
 export default {
        components:{
       carousel
@@ -65,12 +66,12 @@ export default {
     methods: {
         getProducts(){
             getAllProductsAPI().then((res)=>{
-                this.products=response.data.products;
-                vm.sortProducts= vm.products.filter(item=>{
+                this.products=res.data.products;
+                this.sortProducts= this.products.filter(item=>{
 
                 //在所有商品中過濾出同品項的並扣掉被點擊的商品本身
-                   if(item.category === vm.category){
-                       return item.id !== vm.productId
+                   if(item.category === this.category){
+                       return item.id !== this.productId
                    }    
              })
             })
