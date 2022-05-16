@@ -129,14 +129,5 @@
 <script>
 export default {
     
-    // methods: {
-    //     getM(){
-    //         alert("OK")
-    //     }
-    // },
-
-    // created() {
-    //     this.getM()
-    // },
 }
 </script>

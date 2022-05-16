@@ -1,7 +1,5 @@
 <template>
     <div>
-
-        <loading :active='isLoading'/>
         <div class="pro_bg">
             <div class="col-12 p-0">
                 <div class="productBanner">
@@ -50,7 +48,6 @@ export default {
             allProducts:[],
             sortItems:[],
             favorite: JSON.parse(localStorage.getItem("favorite")) || [],
-            isLoading:false,
             myfavorite:[]
         }
     },

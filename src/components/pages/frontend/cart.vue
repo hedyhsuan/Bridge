@@ -1,7 +1,5 @@
 <template>
     <div>
-          <loading :active='isLoading'  />
-
           <div class="cart_page">
 
              <div class="container" v-if="totalPrice>0">
@@ -94,7 +92,6 @@ export default {
     return {
         data:[],
         orderId:"",
-        isLoading:false,
         tempData: JSON.parse(localStorage.getItem('tempData')) || [],
         //localStorage儲存的商品資料
         allCart:[],

@@ -1,6 +1,5 @@
 <template>
     <div>
-      <loading :active='isLoading'  />
       <div class="orderlist_page">
         <div class="container">
           <div class="">
@@ -111,9 +110,6 @@ export default {
           orderId:"",
           order:{},
           orderlist:[],
-          isLoading:false,
-
-          
       }
   },
   methods: {

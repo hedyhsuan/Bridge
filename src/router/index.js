@@ -68,14 +68,14 @@ export default new VueRouter({
                     meta:{ requiresAuth:true}
             
                   },
-                  {
-                    name:'Orderdetail', 
-                    path:'orderdetail/:orderId', 
-                    component:Orderdetail, 
+                  // {
+                  //   name:'Orderdetail', 
+                  //   path:'orderdetail/:orderId', 
+                  //   component:Orderdetail, 
 
-                    meta:{ requiresAuth:true}
+                  //   meta:{ requiresAuth:true}
             
-                  },
+                  // },
 
              ]
         },

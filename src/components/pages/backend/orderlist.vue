@@ -1,6 +1,5 @@
 <template>
     <div>
-      <loading :active='isLoading'/>
       <div class="pro_bg">
         <div class="container product_list ">
             <div class="row pt-4 d-flex justify-content-between" >
@@ -175,9 +174,7 @@ export default {
             user:{},
             pagination:{},
             tempProduct:{
-             
             },
-            isLoading:false,
         
         }
     },

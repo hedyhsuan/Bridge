@@ -21,8 +21,12 @@ import * as rules from 'vee-validate/dist/rules';
 import { BCarousel } from 'bootstrap-vue'; 
 import { BCarouselSlide } from 'bootstrap-vue';
 import carousel from 'vue-owl-carousel';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css'
+// import Loading from 'vue-loading-overlay';
+// import 'vue-loading-overlay/dist/vue-loading.css'
+import elementui from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+//修改後的loadingCSS
+import '../src/assets/element_ui.css'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import router from '@/router';
@@ -50,13 +54,13 @@ configure({
 
 Vue.use(VueAxios,axios);
 Vue.use(BootstrapVue);
-// Vue.use(CarouselPlugin);
+Vue.use(elementui)
 Vue.config.productionTip = false;
 Vue.filter("currency",currencyFilter);
 //貨幣格式
 Vue.filter("date",dateFilter);
 //數字轉換日期
-Vue.component("Loading",Loading);
+// Vue.component("Loading",Loading);
 Vue.component('b-carousel', BCarousel);
 Vue.component('b-carousel-slide', BCarouselSlide);
 Vue.component('owl-carousel',carousel);

@@ -1,6 +1,6 @@
 <template>
     <div>
-      <loading :active='isLoading'/>
+      <!-- <loading :active='isLoading'/> -->
       <div class="pro_bg">
         <div class="container product_list ">
           <div class="row pt-4 d-flex justify-content-between" >
@@ -13,7 +13,6 @@
               </button>
               <button class="btn-dark">
                  <router-link :to="{name:'Orderlist'}">訂單管理</router-link>
-                <!-- <a href="#/admin/orderlist">訂單管理</a> -->
               </button>
             </div >
             <div>
@@ -54,7 +53,7 @@
            </tbody>
 
           </table>
-          <!-- <pagination :page= pagination @switchPage="getProducts"></pagination> -->
+          <pagination :page= pagination @switchPage="getProducts"></pagination>
       <!-- 將此頁的data pagination動態的存進page中,子頁面再用prop接收 -->
       <!-- @switchPage是pagination這個component向外觸發此實體getProduct()的媒介小鈴鐺 -->
       
@@ -143,7 +142,7 @@
                           id="is_enabled" v-model="tempProduct.is_enabled"
                           :true_value="1"
                           :false_value="0">
-                          <!-- 後端data中是用0跟1來區別false跟true -->
+                          <!-- 後端data中0跟為false跟true -->
                         <label class="form-check-label" for="is_enabled">
                           是否啟用
                         </label>
@@ -207,7 +206,7 @@ export default {
             isNew:false,
             //判定是新增或是修改資料
             pagination:{},
-            isLoading:false,
+            // isLoading:false,
             status:{
               fileUploading:false,
             }

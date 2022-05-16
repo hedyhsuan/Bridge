@@ -1,6 +1,5 @@
 <template>
     <div>
-      <loading :active='isLoading'  />
       <div class="checkout_page">
         <div class="container">
           <div class="row">
@@ -121,7 +120,6 @@ export default {
           data:[],
           allCart:[],
           tempData: JSON.parse(localStorage.getItem('tempData')) || [],
-          isLoading:false,
           coupon_code:"",
           form:{
               user:{

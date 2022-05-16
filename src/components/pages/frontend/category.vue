@@ -1,6 +1,5 @@
 <template>
     <div>
-      <loading :active='isLoading'/>
       <div class="pro_bg">
         <div class="col-12 p-0">
           <div class="productBanner">
@@ -53,7 +52,6 @@ export default {
             pagination:{},
             category:"",
             //產品類別
-            isLoading:false,
         }
     },
     components:{

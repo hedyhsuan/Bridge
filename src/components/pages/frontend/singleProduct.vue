@@ -1,17 +1,14 @@
 <template>
     <div>
-        <loading :active='isLoading'/>
-         <div class="pro_bg">
-
-      <div class="col-12 p-0 ">
-       <div class="productBanner">
+      <div class="pro_bg">
+        <div class="col-12 p-0 ">
+          <div class="productBanner">
            <img class="bannerImg w-100" src="https://imgur.com/KuQMQdY.jpg" alt="">
-       </div>
-      </div>
-
+          </div>
+        </div>
 
       <div class="container product-wrap">
-      <div class="row">
+        <div class="row">
         <!-- breadcrumb -->
           <div class="col-12">
              <nav aria-label="breadcrumb">
@@ -43,14 +40,11 @@
           </div>
       <!-- 大圖 -->
           <div class="col-md-9">
-   
            <div class="mcs-item-l mr-3">
                <img class="w-100" :src="product.imageUrl" alt="">
            </div>  
           </div>
-
        </div>  
-
      </div>  
 
      <div id="product-right" class="col-md-5">
@@ -79,10 +73,10 @@
        </div>
       </div>
         </div> 
+
           <!-- 推薦商品 -->
        <div class="my-5 mx-auto col-lg-7 col-md-9 col-sm-12">
          <h4 class="mb-5 text-center">推薦商品</h4>
-
          <Carousel
         :category="category"
         :carouselItems="carouselItems"
@@ -118,16 +112,11 @@
          </div>
        </div>
      </div> 
-
-
-
-
     
     </div>  
 </template>
 
 <script>
-import $ from 'jquery';
 import Carousel from "../../carousel_slide.vue"
 import {getProductAPI} from "../../../api/api"
 

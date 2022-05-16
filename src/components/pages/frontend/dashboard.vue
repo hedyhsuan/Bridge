@@ -2,8 +2,6 @@
     <div>
                   
       <header class="nav_list navbar-dark fixed-top">
-             
-       
             <div class="" >
                 <router-link :to="{name: 'Index'}">
                 <div class="nav_logo " >
@@ -127,7 +125,7 @@
 import $ from 'jquery';
 
 import NavbarCollapse from "../../navbar_collapse"
-
+//TODO
 $(window).scroll(function(){
     if($(window).scrollTop()>100){
     $(".nav_list").removeClass("navbar-dark");
