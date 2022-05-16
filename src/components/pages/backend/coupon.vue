@@ -101,7 +101,7 @@
                data-dismiss="modal" @click="openModel(item)">編輯</button>
              </td>
              <td>
-               <button class="btn btn-outline-danger btn-sm my-auto" @click="delCoupon(item)">
+               <button class="btn btn-outline-danger btn-sm my-auto" @click="delCoupon(item.id)">
                <i class="fas fa-trash-alt" style="danger"></i>
                </button>
              </td>
@@ -182,8 +182,7 @@
 </template>
 
 <script>
-import $ from 'jquery';
-
+import {addCouponAPI,deleteBsCouponAPI,logoutAPI,getBsCouponAPI,updateBscCouponAPI} from '../../../api/api'
 export default {
 
   data() {
@@ -193,10 +192,6 @@ export default {
       
           },
           isLoading:false,
-      //讀取的轉圈圈預設是停止的狀態
-        //  due_date:"",
-      // 因為日期要轉成timestamp存進後端所以v-model綁定的內容暫存在這邊然後
-      // 經過下面的watch內做轉換後再丟回要回傳的newCoupon裡
           tempCoupon:{
 
           },
@@ -205,90 +200,55 @@ export default {
   },
 
   methods: {
+    getCoupon(page){
+      getBsCouponAPI(page).then((res)=>{
+        this.coupons=res.data.coupons;
 
+      })
+
+    },
     addCoupon(){
-      let api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/coupon`;
-      let httpMethod="post";
-
-      const vm=this; 
-      vm.isLoading=true;
-      // 當要使用這個元件裡的data時確定指向用
-      this.$http[httpMethod](api,{data:vm.newCoupon}).then((response) => {
-      // 上傳內容也要用API裡面同樣的格式   
-      vm.newCoupon={};
-      vm.getCoupon();
-
+      addCouponAPI({data:this.newCoupon}).then((res)=>{
+        this.newCoupon={};
+        this.getCoupon();
       })
-    },
-    getCoupon(page=1){
-      let api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/coupons?page=${page}`;
-      let httpMethod="get";
-      const vm=this; 
-      // 當要使用這個元件裡的data時確定指向用
-      this.$http[httpMethod](api).then((response) => {
-        vm.coupons=response.data.coupons;
-        vm.isLoading=false;
-      })
-
-    },
-
-    delCoupon(item){
-      let api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/coupon/${item.id}`;
-      const vm=this;
-      vm.isLoading=true;
-        // 當要使用這個元件裡的data時確定指向用
-        this.$http.delete(api).then((response) => {
-        vm.getCoupon();
-    
-      }) 
-    },
-      
+     
+    }, 
     openModel(item){
-          // const newDate=item.due_date;
-
-          this.tempCoupon=Object.assign({},item);
-  
-            $("#productModal").modal('show');
+      this.tempCoupon=Object.assign({},item);
+      $("#productModal").modal('show');
     },
-      
-    updateCoupon() {
-      const vm=this;      
-      let api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
-    
-      vm.isLoading=true;
-      this.$http.put(api,{data:vm.tempCoupon}).then((response) => {
-        if(response.data.success){
+
+    updateCoupon(){
+      updateBscCouponAPI(this.tempCoupon.id,{data:this.tempCoupon}).then((res)=>{ 
+        if(res.data.success){
           $("#productModal").modal('hide');
-          vm.getCoupon();
+          this.getCoupon();
         }else{
-            vm.getCoupon();
             $("#productModal").modal('hide');
             alert("編輯失敗")
         }
-      }) 
-    },
-    logout(){
-      const api=`${process.env.APIPATH}logout`;
-      const vm=this;
-      this.$http.post(api).then((response) => {
-      // console.log(response.data);
-      if(response.data.success){
-        console.log("登出")
-        vm.$router.push({name:'Login'})
-      }
       })
+    },
+
+    //TODO
+    delCoupon(id){
+      deleteBsCouponAPI(id).then((res)=>{
+        this.getCoupon();
+      })
+    },
+      
+    logout(){
+       logoutAPI().then((res)=>{
+         if(res.data.success){
+          this.$router.push("/admin/login")
+         }
+       })
+       .catch(err=>console.log(err))
     },
 
   },
   created() {
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-
-     if (token === "") return
-     //如果token沒有內容就直接return結束，若有就往下寫
-     this.axios.defaults.headers.common["Authorization"] = token;
      this.getCoupon();
   },
     

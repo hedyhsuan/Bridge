@@ -77,8 +77,6 @@ export default {
            vm.isLoading=false;
            vm.orders=response.data.orders;
            let id=vm.$route.params.id
-        //    vm.orders.for
-
            vm.pagination=response.data.pagination
 
     })

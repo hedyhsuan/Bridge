@@ -47,50 +47,23 @@ export default {
     },
 
     methods: {
-        //  signin(){
-        //    const vm = this;
-        //    signinAPI(this.user).then((res)=>{
-        //      if(res.data.success){
-        //         vm.login=true;
-        //         const token=res.data.token;
-        //         const expired=res.data.expired;
-        //         document.cookie=`hexToken=${token}; expires=${new Date(expired)}`;
-        
-        //         this.$router.push({name:'Bsproduct'})
-        //      }else{
-        //        vm.login=false;
-        //        console.log(vm.login)
-        //      }
-        //    })
-        //    .catch(err=>console.log(err))
-        //  },
-      signin(){
-        const api=`${process.env.APIPATH}admin/signin`;
-        const vm=this;
-        this.$http.post(api,vm.user).then((response) => {
-          console.log(response)
-
-        if(response.data.success){
-          const vm=this;
-          vm.login=true;
-           console.log("login",response)
-          const token=response.data.token;
-          const expired=response.data.expired;
-         
-          document.cookie=`hexToken=${token}; expires=${new Date(expired)}`;
-          console.log("login",document.cookie)
-          vm.$router.push({name:'Bsproduct'})
+         signin(){
+           signinAPI(this.user).then((res)=>{
+             if(res.data.success){
+                this.login=true;
+                const token=res.data.token;
+                const expired=res.data.expired;
+                document.cookie=`hexToken=${token}; expires=${new Date(expired)}`;
+                this.$router.push({name:'Bsproduct'})
           //原document.cookie = "someCookieName = true; expires=Fri, 31 Dec 9999 23:59:59"
           //改為``樣版字面值並代入上面兩個變數，someCookieName 名稱可自訂，expired是固定名稱
           //後面的到期日要從數字標籤轉為日期格式
-
-        }else{
-          vm.login=false;
-          console.log("false",vm.login)
-        }
-
-        });
-     },
+             }else{
+               this.login=false;
+             }
+           })
+           .catch(err=>console.log(err))
+         },
     },
     
 }

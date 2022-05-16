@@ -103,6 +103,7 @@
 </template>
 
 <script>
+import {getCusOrderlistAPI,postPaymentAPI} from '../../../api/api'
 export default {
 
   data() {
@@ -117,31 +118,19 @@ export default {
   },
   methods: {
     getOrder(){
-        const vm=this;
-          const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/order/${vm.orderId}`;
-          
-          vm.isLoading=true;
-          this.$http.get(api).then((response)=>{
-              vm.isLoading=false;
-              vm.order=response.data.order;
-              vm.orderlist=response.data.order.products;
-              
-        
-          })
-
+       getCusOrderlistAPI(this.orderId).then((res)=>{
+          this.order=res.data.order;
+          this.orderlist=res.data.order.products;
+       })
+       .catch(err=>console.log(err))
     },
     payorder(){
-            const vm=this;
-          const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/pay/${vm.orderId}`;
-          
-          vm.isLoading=true;
-          this.$http.post(api).then((response)=>{
-              vm.isLoading=false;
-              vm.getOrder();
-          })
+      postPaymentAPI(this.orderId).then((res)=>{
+          this.getOrder();
+      })
+      .catch(err=>console.log(err))
 
-
-    },
+    }
     
   },
   created() {

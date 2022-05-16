@@ -20,7 +20,7 @@
                  <router-link class="nav-link" :to="{name:'Category',params:{category:item.nameEn}}">{{item.categoryName }}</router-link>
                   </li>
                   <li class="nav-item" @click="bgblur=false">
-                        <router-link class="nav-link" :to="{name:'Login'}">後台登入</router-link>
+                        <router-link class="nav-link" :to="{name:'Bsproduct'}">後台登入</router-link>
                  </li>
   
             

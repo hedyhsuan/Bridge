@@ -6,8 +6,10 @@
           <div class="row pt-4 d-flex justify-content-between" >
             <div>
               <button class="btn-dark">
+                <router-link :to="{name: 'Bsproduct'}" >產品管理</router-link>
+              </button>
+              <button class="btn-dark">
                 <router-link :to="{name: 'Coupon'}">優惠券</router-link>
-                <!-- <a href="#/admin/coupon">優惠券</a> -->
               </button>
               <button class="btn-dark">
                  <router-link :to="{name:'Orderlist'}">訂單管理</router-link>
@@ -15,7 +17,7 @@
               </button>
             </div >
             <div>
-              <button class="btn-dark" @click="openModal()">建立新產品</button>
+              <button class="btn-dark" @click="openModal(true)">建立新產品</button>
               <button class="btn-dark" @click="logout()">登出</button>
             </div>
 
@@ -192,7 +194,7 @@
 
 <script>
 import pagination from "../../pagination"
-import {getBsProductsAPI,addBsProductAPI,updateBsProductAPI} from "../../../api/api"
+import {getBsProductsAPI,logoutAPI,addBsProductAPI,updateBsProductAPI,deleteBsProductAPI} from "../../../api/api"
 export default {
     components:{
       pagination
@@ -214,14 +216,10 @@ export default {
     },
     methods: {
       getProducts(page){
-        const vm=this;
-          // vm.isLoading=true;
         getBsProductsAPI(page).then((res)=>{
-          // vm.isLoading=false;
           if(res.data.success){
-            vm.products=res.data.products;
-            console.log(vm.products)
-            vm.pagination=res.data.pagination;
+            this.products=res.data.products;
+            this.pagination=res.data.pagination;
           }else{
             console.log(res)
           }
@@ -229,51 +227,23 @@ export default {
         .catch(err=>console.log(err))
 
       },
-    //   getProducts(page=1){
-    //     const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/products?page=${page}`;
-    //     const vm=this;
-    //     vm.isLoading=true;
-    //     this.$http.get(api).then((response) => {
-    //       vm.isLoading=false;
-    //       if(response.data.success){
-    //           vm.products=response.data.products;
-    //           console.log(vm.products)
-    //           vm.pagination=response.data.pagination;
-    //       }else{
-    //         console.log(response)
-    //       }
-    // })
-    //   },
-
     logout(){
        logoutAPI().then((res)=>{
-           if(response.data.success){
-             this.$router.push("/admin/login")
-           }
+         if(res.data.success){
+          this.$router.push("/admin/login")
+         }
        })
        .catch(err=>console.log(err))
     },
 
-    // logout(){
-    //   const api=`${process.env.APIPATH}logout`;
-    //   const vm=this;
-    //   this.$http.post(api).then((response) => {
-    //   // console.log(response.data);
-    //   if(response.data.success){
-    //       vm.$router.push("/admin/login")
-    //      }
-    //   })
-            
-    //   },
-
     openModal(isNew,item){
       //若是現有的資料則先帶入內容
       if(isNew){
-          this.tempProduct={},
-          this.isNew=true
+        this.tempProduct={},
+        this.isNew=true
 
       }else{
-          this.tempProduct=Object.assign({},item);
+        this.tempProduct=Object.assign({},item);
           //ES6寫法，淺拷貝，避免item資料重疊
       }
       $("#productModal").modal("show");
@@ -284,70 +254,42 @@ export default {
       $("#delProductModal").modal("show")
     },
 
-    // updateProduct(){
-    //   let vm=this;
-    //   if(vm.isNew){
-    //     addBsProductAPI({data:vm.tempProduct}).then((res)=>{
-    //       if (res.data.success){
-    //          $("#productModal").modal("hide");
-    //          vm.getProducts();
-    //       }else{
-    //          console.log("新增失敗")
-    //       }
-    //     })
-    //     .catch(err=>console.log(err))
-    //   }else{
-    //     updateBsProductAPI(vm.tempProduct.id,{data:vm.tempProduct}).then((res)=>{
-    //       console.log(res)
-    //       if (res.data.success){
-    //          $("#productModal").modal("hide");
-    //          vm.getProducts();
-    //       }else{
-    //          console.log("更新失敗")
-    //       }
-    //     })
-    //   }
-
-    // },
-
     updateProduct(){
-      let api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product`;
-      let vm=this;
-      let httpMethod="post";
-      vm.isLoading=true;
-      if(!vm.isNew){
-      api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-        httpMethod="put";
-        
-      }
-      this.$http[httpMethod](api,{data:vm.tempProduct}).then((response) => {
-      //tempProduct是在後台資料的{data:}中，上傳也要相同的格式
-      vm.isLoading=false;
-      console.log(response)
-      if (response.data.success){
-          $("#productModal").modal("hide");
-          vm.getProducts();
+      if(this.isNew){
+        addBsProductAPI({data:this.tempProduct}).then((res)=>{
+          if (res.data.success){
+             $("#productModal").modal("hide");
+             this.getProducts();
+          }else{
+            //TODO
+             console.log("新增失敗")
+          }
+        })
+        .catch(err=>console.log(err))
       }else{
-          console.log("新增失敗")
+        updateBsProductAPI(this.tempProduct.id,{data:this.tempProduct}).then((res)=>{
+          if (res.data.success){
+             $("#productModal").modal("hide");
+             this.getProducts();
+          }else{
+             console.log("更新失敗")
+          }
+        })
+        .catch(err=>console.log(err))
       }
-    })
+
     },
 
     deleteProduct(){
-      const vm=this;
-      //因為需要先抓item的ID
-      const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-      this.$http.delete(api).then((response) => {
-        if(response.data.success){
-            $("#delProductModal").modal("hide");
-            vm.getProducts();
-
+      deleteBsProductAPI(this.tempProduct.id).then((res)=>{
+        if(res.data.success){
+          $("#delProductModal").modal("hide");
+          this.getProducts();
         }else{
-            console.log(response.data);
+          console.log(response.data);
         }
 
-      });
-    
+      })
     },
 
     uploadFile(){
@@ -379,14 +321,6 @@ export default {
     }
     },
     created() {
-  //    const token = document.cookie.replace(
-  //    /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-  //    "$1"
-  //  );
-  
-  //    if (token === "") return
-  //    //如果token沒有內容就直接return結束，若有就往下寫
-  //    this.axios.defaults.headers.common["Authorization"] = token;
      this.getProducts();
  },
 

@@ -114,8 +114,8 @@
 
 
 <script>
+import {getCartAPI,postCouponAPI,postOrderAPI} from '../../../api/api'
 export default {
-
   data() {
       return {
           data:[],
@@ -136,52 +136,39 @@ export default {
       }
   },
   methods: {
-    getCart(){
-            const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/cart`;
-            const vm=this;
-            vm.isLoading=true;
-            this.$http.get(api).then((response)=>{
-                vm.isLoading=false;
-                vm.data=response.data.data;
-                vm.allCart=response.data.data.carts;               
-            })
-            
-        },
-        
-    addCouponCode(){
-        const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/coupon`;
-        const vm=this;
-        vm.isLoading=true;
-        const coupon={
-            code:vm.coupon_code
-        }
-        this.$http.post(api,{data:coupon}).then((response)=>{
-          vm.coupon_code="";
-          vm.getCart();
-
+      getCart(){
+        getCartAPI().then((res)=>{
+          this.finalPrice=res.data.data.finalPrice;
+          this.data=res.data.data;
+          this.allCart=res.data.data.carts;
         })
-
-    },
-
-    placeOrder(){
-        const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/order`;
-        const vm=this;
-        const order=vm.form;
-        vm.isLoading=true;
-          this.$http.post(api,{data:order}).then((response)=>{
-              this.isLoading=false;
-              if(response.data.success){
-                  vm.tempData=[];
-                localStorage.setItem('tempData', JSON.stringify(vm.tempData));
-                this.$emit('localData');
-                //觸發dashboard上面的購物車更新內容
-
-                // vm.$router.push(`/customorderlist/${response.data.orderId}`);
-                this.$router.push({name:'Customorderlist',params:{orderId:response.data.orderId}}) 
-
-              }
-          });
+        .catch(err=>console.log(err))
       },
+      addCouponCode(){
+        const coupon={
+          code:this.coupon_code
+        }
+        postCouponAPI({data:coupon}).then((res)=>{
+          this.coupon_code="";
+          this.getCart()
+        })
+        .catch(err=>console.log(err))
+
+      },
+      placeOrder(){
+        const order=this.form;
+        postOrderAPI({data:order}).then((res)=>{
+          if(res.data.success){
+            this.tempData=[];
+            localStorage.setItem('tempData', JSON.stringify(this.tempData));
+            this.$emit('localData');
+            //觸發dashboard上面的購物車更新內容
+            this.$router.push({name:'Customorderlist',params:{orderId:res.data.orderId}}) 
+              }
+        })
+        .catch(err=>console.log(err))
+
+      }
         } ,
 
   created(){

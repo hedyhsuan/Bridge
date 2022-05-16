@@ -22,7 +22,7 @@
             v-on="$listeners"
               ></productlist>
             <div class="col-12" v-show="pagination">
-              <pagination :page= pagination @switchPage="getProducts"></pagination>
+              <pagination v-show="products.length>=10" :page= pagination @switchPage="getProducts"></pagination>
               <!-- 將此頁的data pagination動態的存進page中,子頁面再用prop接收 -->
               <!-- @switchPage是pagination這個component向外觸發此實體getProduct()的媒介小鈴鐺 --> 
             </div>
@@ -37,11 +37,10 @@
 
 <script>
 // import $ from 'jquery';
-// import { bus } from '../../bus';
 import pagination from "../../pagination.vue";
 import productlist from "../../productlist";
 import CategorySidebar from "../../category_sidebar"
-import {getProductsAPI} from "../../../api/api"
+import {getProductsAPI,getAllProductsAPI} from "../../../api/api"
 
 export default {
 
@@ -72,36 +71,15 @@ export default {
            getProductsAPI(page).then((res)=>{
             this.products=res.data.products;
             this.pagination=res.data.pagination;
-          //  console.log("get",res)
            })
          .catch(err=>console.log(err))
         }else{
           this.SortProduct()
-
         }
-       
       },
-  
-    // AllProducts(page=1){
-    //   const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products?page=${page}`;
-    //   const vm=this;
-    //   vm.category=this.$route.params.category
-    //   vm.isLoading=true;
-    //  if(vm.category==='allproduct'){
-    //     this.$http.get(api).then((response) => {
-    //     vm.isLoading=false;
-    //     vm.products=response.data.products;
-    //     vm.pagination=response.data.pagination;
 
-    //   })
-    //  }else{
-    //    this.SortProduct()
-    //  }
-      
- 
-    // }, 
     SortProduct(){
-      getSortProductsAPI().then((res)=>{
+      getAllProductsAPI().then((res)=>{
         this.allProducts=res.data.products;
         this.products=[];
          //把原本的資料清空
@@ -114,40 +92,16 @@ export default {
               }
           }
         })
-        console.log(this.products)
       })
       .catch(err=>console.log(err))
     }
 
-    // SortProduct(){
-    //   const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products/all`;
-    //   const vm = this
-    //   vm.isLoading=true;
-    //   this.$http.get(api).then((response) => {
-    //   vm.isLoading=false;
-    //    vm.allProducts=response.data.products;
-    //    vm.products=[];
-    //    vm.pagination={},
-    //    //因為頁面不會刷新所以要把原本的位置清空
-    //    vm.allProducts.forEach((item)=>{
-    //      if(item.category == vm.category){
-    //        vm.products.push(item)
-    //      }else if(vm.category==='sale'){
-    //        if(item.original_price!==item.price){
-    //        vm.products.push(item)
-    //      }
-    //      }
-    //    })
-    // })
-    // }
 
     },
 
     
     created() { 
       this.getProducts()
-
-      // this.AllProducts()
         
     },
 

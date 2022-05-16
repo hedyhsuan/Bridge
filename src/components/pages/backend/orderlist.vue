@@ -8,9 +8,7 @@
                 <button class="btn-dark">
                   <router-link :to="{name: 'Coupon'}">優惠券管理</router-link>
                 </button>
-                <button class="btn-dark">
-                  <router-link :to="{name: 'Bsproduct'}">產品管理</router-link>
-                </button>
+           
           
               </div >
               <div>
@@ -163,8 +161,8 @@
 
 
 <script>
-import $ from 'jquery';
 import pagination from "../../pagination"
+import {getBsOrdersAPI,updateOrderDetailAPI} from '../../../api/api'
 
 export default {
     components:{
@@ -184,41 +182,37 @@ export default {
         }
     },
     methods: {
-      getOrders(page=1){
-        const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/orders?page=${page}`;
-        const vm=this;
-        vm.isLoading=true;
-        this.$http.get(api).then((response) => {
-        vm.isLoading=false;
-        vm.data=response.data;
-        vm.orders=response.data.orders;
-        vm.pagination=response.data.pagination
-
+      getOrders(page){
+        getBsOrdersAPI(page).then((res)=>{
+          if(res.data.success){
+          this.orders=res.data.orders;
+          this.pagination=res.data.pagination
+          }else{
+            console.log(res)
+          }
+          
         })
+
       },
 
      getOrder(item){
         const vm=this;
         vm.tempProduct=JSON.parse(JSON.stringify(item));
-        // console.log(this.tempProduct)
         vm.user=vm.tempProduct.user;
        $("#orderModal").modal("show");
      },  
      
-    updateOrder(id) {
-      const vm=this;
-      const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/order/${id}`;
-      this.$http.put(api,{data:this.tempProduct}).then((response) => {
-        console.log(id)
-            if (response.data.success){
+     updateOrder(id){
+       updateOrderDetailAPI(id,{data:this.tempProduct}).then((res)=>{
+         if (res.data.success){
                 $("#orderModal").modal("hide");
                 this.getOrders();
             }else{
                 console.log("更新失敗")
-        }
-      })
-      
-    },
+            }
+       })
+
+     },
 
       logout(){
         const api=`${process.env.APIPATH}logout`;

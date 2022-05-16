@@ -87,6 +87,7 @@
 
 
 <script>
+import {getCartAPI,postCartAPI,deleteCartItemAPI} from "../../../api/api"
 export default {
 
     data() {
@@ -98,24 +99,18 @@ export default {
         //localStorage儲存的商品資料
         allCart:[],
         //後台儲存的商品資料
-        totalPrice:0,
-        
+        totalPrice:0, 
         
     };
 },
     methods: {
+        getData(){
+            getCartAPI().then((res)=>{
+            this.allCart=res.data.data.carts;
+             
+            })
+            .catch(err=>console.log(err))
 
-        getCart(){
-        const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/cart`;
-        const vm=this;
-        vm.isLoading=true;
-        this.$http.get(api).then((response)=>{
-            vm.isLoading=false;
-            vm.finalPrice=response.data.data.finalPrice;
-            vm.data=response.data.data;
-            vm.allCart=response.data.data.carts;
-        })
-           
         },
 
         getTotalPr(){
@@ -127,7 +122,6 @@ export default {
             
         },
 
-        //先在localStorage把資料處理好之後再呼叫vm.removeCartItem將資料儲存到後台
         removeItem(localItem){
             const vm=this;
             vm.tempData.forEach((item,key)=>{
@@ -137,67 +131,38 @@ export default {
                 }
                 localStorage.setItem('tempData', JSON.stringify(vm.tempData))
                 // 更新的資料傳回localStorage
-                // console.log(vm.tempData)
                 vm.getTotalPr()
                 // 刪除後重新計算價格
             })
             this.$emit('localData');
           
         },
-        removeCartItem(id){
-            const vm=this;
-            const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/cart/${id}`;
-            vm.$http.delete(api).then((response) => {    
+        //TODO
+        goCheckout(){
+            // 先把原本後台購物車清空
+            this.allCart.forEach((item)=>{
+              deleteCartItemAPI(item.id).then((res)=>{
+              })
+              .catch(err=>console.log(err))
+            })
+            // 把localStorage的資料存進後台
+            this.tempData.forEach((item)=>{
+              const cartLocalstorage={
+                product_id:item.product_id,
+                qty:item.qty
+              }
+            postCartAPI({data:cartLocalstorage}).then((res)=>{
+                this.$router.push({name:'Checkout'}) 
+
+            })
+            .catch(err=>console.log(err))    
             })
              
-        },
-        goCheckout(){
-             const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/cart`;
-             const vm=this;
-             vm.isLoading=true;
-             this.$http.get(api).then((response)=>{
-           
-            vm.allCart=response.data.data.carts;
-        })
-           // 先把原本可能已經在後台購物車裡面的資料清空
-            vm.allCart.forEach((item)=>{
-                this.removeCartItem(item.id)   
-            })
-             // 把localStorage的資料存進後台
-            vm.tempData.forEach((item)=>{
-                const cartLocalstorage={
-                    product_id:item.product_id,
-                    qty:item.qty
-                }
-                vm.$http.post(api,{data:cartLocalstorage}).then(()=>{ 
-                      vm.isLoading=false; 
-                       this.$router.push({name:'Checkout'}) 
-                       
-                })  
-                // this.$router.push({name:'Checkout'}) 
-                // 要在上方的非同步內做轉址，確定非同步行為完成後再轉址，不然會造成轉址後資料為未更新       
-            })
-            
-          
 
         },
-        addCouponCode(){
-            const vm=this;
-            const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/coupon`;
-            const coupon={
-                code:vm.coupon_code
-            };
-            vm.isLoading=true;
-            vm.$http.post(api,{data:coupon}).then((response) => {
-                console.log(response);
-                vm.getCart();
-                 vm.isLoading=true;
-
-            })
-        }
     },
     created() {
-        this.getCart();
+        this.getData()
         this.getTotalPr()
 
     },
