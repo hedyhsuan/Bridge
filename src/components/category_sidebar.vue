@@ -71,8 +71,6 @@ export default {
       }
      
     },
-    // props:['category'],
-
     methods: {
 
       getProducts(cate){
