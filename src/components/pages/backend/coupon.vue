@@ -5,11 +5,15 @@
           <div class="row pt-4 d-flex justify-content-between" >
             <div>
               <button class="btn-dark">
-                <router-link :to="{name: 'Orderlist'}">訂單管理</router-link>
-              </button>
-              <button class="btn-dark">
                 <router-link :to="{name: 'Bsproduct'}">產品管理</router-link>
               </button>
+              <button class="">
+                <router-link :to="{name: 'Coupon'}">優惠券</router-link>
+              </button>
+              <button class="btn-dark">
+                <router-link :to="{name: 'Orderlist'}">訂單管理</router-link>
+              </button>
+        
          
             </div >
            <div>

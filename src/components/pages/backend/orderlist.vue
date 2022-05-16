@@ -4,12 +4,16 @@
         <div class="container product_list ">
             <div class="row pt-4 d-flex justify-content-between" >
               <div>
-                <button class="btn-dark">
-                  <router-link :to="{name: 'Coupon'}">優惠券管理</router-link>
-                </button>
-           
-          
-              </div >
+              <button class="btn-dark">
+                <router-link :to="{name: 'Bsproduct'}" >產品管理</router-link>
+              </button>
+              <button class="btn-dark">
+                <router-link :to="{name: 'Coupon'}">優惠券</router-link>
+              </button>
+              <button >
+                 <router-link :to="{name:'Orderlist'}">訂單管理</router-link>
+              </button>
+            </div >
               <div>
                 <button class="btn-dark" @click="logout()">登出</button>
              </div>

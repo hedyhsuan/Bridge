@@ -5,8 +5,10 @@
         <div class="container product_list ">
           <div class="row pt-4 d-flex justify-content-between" >
             <div>
-              <button class="btn-dark">
+              <button >
                 <router-link :to="{name: 'Bsproduct'}" >產品管理</router-link>
+                
+                
               </button>
               <button class="btn-dark">
                 <router-link :to="{name: 'Coupon'}">優惠券</router-link>
@@ -206,7 +208,6 @@ export default {
             isNew:false,
             //判定是新增或是修改資料
             pagination:{},
-            // isLoading:false,
             status:{
               fileUploading:false,
             }
@@ -219,6 +220,7 @@ export default {
           if(res.data.success){
             this.products=res.data.products;
             this.pagination=res.data.pagination;
+            console.log(this.activeName)
           }else{
             console.log(res)
           }
@@ -327,6 +329,5 @@ export default {
 </script>
 
 <style scoped>
-
 
 </style>
