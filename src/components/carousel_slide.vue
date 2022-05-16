@@ -40,8 +40,6 @@ export default {
         return{
             products:[],
             sortProducts:[],
-     
-         
         
         }
     },
@@ -66,25 +64,34 @@ export default {
     // props:['category','carouselItems','productId'],
     methods: {
         getProducts(){
-            const vm=this;
-            const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products/all`;
-            
-            this.$http.get(api).then((response) => {
-                
-             vm.products=response.data.products;
-             vm.sortProducts= vm.products.filter(item=>{
+            getAllProductsAPI().then((res)=>{
+                this.products=response.data.products;
+                vm.sortProducts= vm.products.filter(item=>{
+
                 //在所有商品中過濾出同品項的並扣掉被點擊的商品本身
-                if(item.category === vm.category){
-                    return item.id !== vm.productId
-                }    
+                   if(item.category === vm.category){
+                       return item.id !== vm.productId
+                   }    
              })
-            })    
-
+            })
         },
+        // getProducts(){
+        //     const vm=this;
+        //     const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products/all`;
+        //     this.$http.get(api).then((response) => {    
+        //      vm.products=response.data.products;
+        //      vm.sortProducts= vm.products.filter(item=>{
+        //         //在所有商品中過濾出同品項的並扣掉被點擊的商品本身
+        //         if(item.category === vm.category){
+        //             return item.id !== vm.productId
+        //         }    
+        //      })
+        //     })    
 
+        // },
+       
         getProduct(id){
          this.$router.push(`/${id}`)
-     
          this.$emit('getProduct'); 
          // 單一商品細節更新
          
@@ -105,7 +112,7 @@ export default {
 
     },
     // 監聽外層傳進來的category跟productId的值，確認接收到之後再用該資料去渲染畫面
-    
+    //TODO
     created() {
         if(this.$route.path=="/"){
              this.getProducts()  
