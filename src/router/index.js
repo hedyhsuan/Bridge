@@ -11,7 +11,7 @@ import Cart from "@/components/pages/frontend/cart"
 import Coupon from "@/components/pages/backend/coupon"
 import Checkout from "@/components/pages/frontend/checkout"
 import Orderlist from "@/components/pages/backend/orderlist"
-import Orderdetail from "@/components/pages/backend/orderdetail"
+// import Orderdetail from "@/components/pages/backend/orderdetail"
 // 引入時不用加副檔名.vue
 
 import Category from "@/components/pages/frontend/category"
@@ -27,12 +27,6 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
     routes:[
-        {
-            path:'*',
-            redirect:'/'
-            //如果進入未定義的頁面就重導到首頁
-            
-        },
         {    name:'須驗證首頁',  //元件呈現的名稱/盡量用英文/第一個字母大寫
              path:'/admin', //對應的虛擬路徑
              component:Dashboard, //對應的元件
@@ -79,8 +73,6 @@ export default new VueRouter({
 
              ]
         },
-        
-    
         {
             name:'',  
             path:'/', 
@@ -137,14 +129,17 @@ export default new VueRouter({
                   path:':id', 
                   component:SingleProduct,   
                     },
-
-                         
-                                 
-         
+ 
             ]
 
         },
-    ],
+        {
+          path:'*',
+          redirect: '/',
+            //如果進入未定義的頁面就重導到首頁
+            
+        },
+    ]
 
 
 });
