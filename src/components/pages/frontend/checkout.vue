@@ -193,7 +193,7 @@ export default {
   }
 }
 .checkout_page{
-  margin: 110px 0 0;
+  margin: 100px 0 0;
   padding: 100px 0;
   background-color: #f5f4f1;
 }

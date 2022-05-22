@@ -2,7 +2,7 @@
     <div>
           <div class="cart_page">
 
-             <div class="container" >
+             <div class="container" v-if="totalPrice>0">
                 <h4>購物車</h4>
                 <form action="">
                  <table class="w-100" id="shopping-cart" >
@@ -75,7 +75,7 @@
          
           </div>
 
-          <div class="text-center">
+          <div v-else class="text-center">
               <div class="mb-5">
                   <h5>
                   購物車內尚無商品
@@ -116,7 +116,7 @@ export default {
         getData(){
             getCartAPI().then((res)=>{
                 this.allCart=res.data.data.carts;
-                console.log(this.allCart)
+                // console.log(this.allCart)
              
             })
             
@@ -149,7 +149,6 @@ export default {
         updateCart(){
             const vm=this;
             vm. getTotalPr()
-            console.log(this.tempData)
             localStorage.setItem('tempData', JSON.stringify(vm.tempData))
 
             this.$emit('localData');
