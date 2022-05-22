@@ -165,7 +165,7 @@
 
 <script>
 import pagination from "../../pagination"
-import {getBsOrdersAPI,updateOrderDetailAPI} from '../../../api/api'
+import {getBsOrdersAPI,updateOrderDetailAPI,logoutAPI} from '../../../api/api'
 
 export default {
     components:{
@@ -185,12 +185,8 @@ export default {
     methods: {
       getOrders(page){
         getBsOrdersAPI(page).then((res)=>{
-          if(res.data.success){
           this.orders=res.data.orders;
           this.pagination=res.data.pagination
-          }else{
-            console.log(res)
-          }
           
         })
 
@@ -205,37 +201,28 @@ export default {
      
      updateOrder(id){
        updateOrderDetailAPI(id,{data:this.tempProduct}).then((res)=>{
-         if (res.data.success){
                 $("#orderModal").modal("hide");
                 this.getOrders();
-            }else{
-                console.log("更新失敗")
-            }
        })
 
      },
 
       logout(){
-        const api=`${process.env.APIPATH}logout`;
-        const vm=this;
-        this.$http.post(api).then((response) => {
-      
-        if(response.data.success){
-            vm.$router.push({name:'Login'})
-        }
-        }) 
+       logoutAPI().then((res)=>{
+          this.$router.push("/admin/login")
+       })
 
       },
 
     },
     created() {
-      const token = document.cookie.replace(
-     /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-     "$1"
-     );
-    if (token === "") return
-     //如果token沒有內容就直接return結束，若有就往下寫
-     this.axios.defaults.headers.common["Authorization"] = token;
+    //   const token = document.cookie.replace(
+    //  /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+    //  "$1"
+    //  );
+    // if (token === "") return
+    //  //如果token沒有內容就直接return結束，若有就往下寫
+    //  this.axios.defaults.headers.common["Authorization"] = token;
      this.getOrders();
  },
 

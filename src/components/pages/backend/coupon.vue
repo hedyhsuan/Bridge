@@ -113,6 +113,7 @@
          </tbody>
 
        </table>
+       <pagination :page= pagination @switchPage="getCoupon"></pagination>
 
 
 
@@ -185,12 +186,17 @@
 </template>
 
 <script>
+import pagination from "../../pagination.vue"
 import {addCouponAPI,deleteBsCouponAPI,logoutAPI,getBsCouponAPI,updateBscCouponAPI} from '../../../api/api'
 export default {
+      components:{
+      pagination
+    },
 
   data() {
       return {
           coupons:[], 
+          pagination:{},
           newCoupon:{
       
           },
@@ -204,15 +210,17 @@ export default {
   methods: {
     getCoupon(page){
       getBsCouponAPI(page).then((res)=>{
-        this.coupons=res.data.coupons;
-
+           this.coupons=res.data.coupons;
+           this.pagination=res.data.pagination;
       })
 
     },
     addCoupon(){
+      
       addCouponAPI({data:this.newCoupon}).then((res)=>{
-        this.newCoupon={};
-        this.getCoupon();
+          this.newCoupon={};
+          this.getCoupon();
+     
       })
      
     }, 
@@ -228,25 +236,24 @@ export default {
           this.getCoupon();
         }else{
             $("#productModal").modal('hide');
-            alert("編輯失敗")
+            console.log(res.data.message)
         }
       })
     },
 
     //TODO
     delCoupon(id){
-      deleteBsCouponAPI(id).then((res)=>{
-        this.getCoupon();
+      deleteBsCouponAPI(id).then((res)=>{   
+           this.getCoupon(); 
       })
     },
       
     logout(){
        logoutAPI().then((res)=>{
-         if(res.data.success){
           this.$router.push("/admin/login")
-         }
+
        })
-       .catch(err=>console.log(err))
+
     },
 
   },

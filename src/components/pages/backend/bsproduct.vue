@@ -1,14 +1,11 @@
 <template>
     <div>
-      <!-- <loading :active='isLoading'/> -->
       <div class="pro_bg">
         <div class="container product_list ">
           <div class="row pt-4 d-flex justify-content-between" >
             <div>
               <button >
                 <router-link :to="{name: 'Bsproduct'}" >產品管理</router-link>
-                
-                
               </button>
               <button class="btn-dark">
                 <router-link :to="{name: 'Coupon'}">優惠券</router-link>
@@ -56,7 +53,6 @@
 
           </table>
           <pagination :page= pagination @switchPage="getProducts"></pagination>
-      <!-- 將此頁的data pagination動態的存進page中,子頁面再用prop接收 -->
       <!-- @switchPage是pagination這個component向外觸發此實體getProduct()的媒介小鈴鐺 -->
       
         </div>
@@ -195,7 +191,7 @@
 
 <script>
 import pagination from "../../pagination"
-import {getBsProductsAPI,logoutAPI,addBsProductAPI,updateBsProductAPI,deleteBsProductAPI} from "../../../api/api"
+import {getBsProductsAPI,logoutAPI,addBsProductAPI,updateBsProductAPI,deleteBsProductAPI,fileUploadAPI} from "../../../api/api"
 export default {
     components:{
       pagination
@@ -204,7 +200,7 @@ export default {
         return {
             products:[],
             tempProduct:{},
-            //新增或存放單筆要編輯的資料，綁定的內容項目要參考後端的API
+            //新增或存放單筆要編輯的資料，綁定的內容格式要參考後端的API
             isNew:false,
             //判定是新增或是修改資料
             pagination:{},
@@ -220,21 +216,16 @@ export default {
           if(res.data.success){
             this.products=res.data.products;
             this.pagination=res.data.pagination;
-            console.log(this.activeName)
           }else{
-            console.log(res)
+            console.log(res.data.message)
           }
         })
-        .catch(err=>console.log(err))
 
       },
     logout(){
        logoutAPI().then((res)=>{
-         if(res.data.success){
           this.$router.push("/admin/login")
-         }
        })
-       .catch(err=>console.log(err))
     },
 
     openModal(isNew,item){
@@ -256,6 +247,7 @@ export default {
     },
 
     updateProduct(){
+      //打開modal的時候已先判定isNew
       if(this.isNew){
         addBsProductAPI({data:this.tempProduct}).then((res)=>{
           if (res.data.success){
@@ -263,20 +255,19 @@ export default {
              this.getProducts();
           }else{
             //TODO
-             console.log("新增失敗")
+             console.log(res.data.message)
           }
         })
-        .catch(err=>console.log(err))
       }else{
         updateBsProductAPI(this.tempProduct.id,{data:this.tempProduct}).then((res)=>{
           if (res.data.success){
              $("#productModal").modal("hide");
              this.getProducts();
           }else{
-             console.log("更新失敗")
+             console.log(res.data.message)
           }
         })
-        .catch(err=>console.log(err))
+
       }
 
     },
@@ -291,37 +282,31 @@ export default {
         }
 
       })
+
     },
 
     uploadFile(){
       console.log(this);
-      //先看檔案被儲存的位置
+      //檔案被儲存的位置
       const uploadedFile =this.$refs.files.files[0];
-      //先取出檔案
-      const formData= new FormData();
-      //建立formData檔案
-      const vm=this;
-      formData.append("file-to-upload",uploadedFile);
-      //把圖片加進相對應的位置--"圖片傳送位置（後端設定）",檔案名稱
-      const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/upload`;
-      vm.status.fileUploading=true;
-      this.$http.post(api,formData,{
-          headers: {
-      'Content-Type': 'multipart/form-data' //更改成 FormData 的格式
-      }
-      }).then((response)=>{
-          vm.status.fileUploading=false;
-          console.log(response.data);
-          if(response.data.success){
-              vm.tempProduct.imageUrl=response.data.imageUrl;
+      fileUploadAPI(uploadedFile).then((res)=>{
+        console.log(res.data);
+        if(res.data.success){
+          
+          this.$set(this.tempProduct,'imageUrl',res.data.imageUrl)
           }
       })
-      //把formData透過API傳給後端
-      //將圖片網址儲存後帶入視窗內的圖片網址處
 
     }
     },
     created() {
+    // const token = document.cookie.replace(
+    //  /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+    //  "$1"
+    //  );
+    // if (token === "") return
+    //  //如果token沒有內容就直接return結束，若有就往下寫
+    //  this.axios.defaults.headers.common["Authorization"] = token;
      this.getProducts();
  },
 
@@ -329,5 +314,11 @@ export default {
 </script>
 
 <style scoped>
+.img-fluid{
+  object-position: center center;
+}
+.btn-dark>a{
+  color: white;
+}
 
 </style>
