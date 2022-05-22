@@ -17,7 +17,7 @@
                   <tr v-for="(item) in tempData" :key="item.id">
                       <td class="cart-item d-flex align-items-center">
                           <div class="cart-img mr-2" style="max-width:160px">
-                              <a href="" >
+                              <a href="#" @click.prevent="getProduct(item.product_id)">
                                   <img class="w-100" :src="`${item.imageUrl}`" alt="">
                               </a>
                           </div>
@@ -117,6 +117,7 @@ export default {
             getCartAPI().then((res)=>{
                 this.allCart=res.data.data.carts;
                 // console.log(this.allCart)
+   
              
             })
             
@@ -130,6 +131,11 @@ export default {
                 vm.totalPrice+=item.price*item.qty
             })
             
+        },
+        getProduct(id){
+        this.$router.push({name:'SingleProduct',params:{id:id}})
+        // this.$router.push(`/${id}`)
+     
         },
 
         removeItem(localItem){
