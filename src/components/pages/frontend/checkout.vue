@@ -136,11 +136,12 @@ export default {
   methods: {
       getCart(){
         getCartAPI().then((res)=>{
-          this.finalPrice=res.data.data.finalPrice;
-          this.data=res.data.data;
-          this.allCart=res.data.data.carts;
+            this.finalPrice=res.data.data.finalPrice;
+            this.data=res.data.data;
+            this.allCart=res.data.data.carts;
+
         })
-        .catch(err=>console.log(err))
+ 
       },
       addCouponCode(){
         const coupon={
@@ -150,21 +151,18 @@ export default {
           this.coupon_code="";
           this.getCart()
         })
-        .catch(err=>console.log(err))
+
 
       },
       placeOrder(){
         const order=this.form;
         postOrderAPI({data:order}).then((res)=>{
-          if(res.data.success){
             this.tempData=[];
             localStorage.setItem('tempData', JSON.stringify(this.tempData));
             this.$emit('localData');
             //觸發dashboard上面的購物車更新內容
             this.$router.push({name:'Customorderlist',params:{orderId:res.data.orderId}}) 
-              }
         })
-        .catch(err=>console.log(err))
 
       }
         } ,

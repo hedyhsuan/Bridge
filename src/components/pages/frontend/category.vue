@@ -62,15 +62,21 @@ export default {
 
     methods: {
       //TODO
-      //測試封裝axios
       getProducts(page){
         this.category=this.$route.params.category
         if (this.category==='allproduct'){
            getProductsAPI(page).then((res)=>{
-            this.products=res.data.products;
-            this.pagination=res.data.pagination;
+               this.products=res.data.products;
+               this.pagination=res.data.pagination;
+             
+            //  if(res.data.success){
+            //    this.products=res.data.products;
+            //    this.pagination=res.data.pagination;
+            //  }else{
+            //    console.log(res.data.message)
+            //  }
+            
            })
-         .catch(err=>console.log(err))
         }else{
           this.SortProduct()
         }
@@ -78,10 +84,10 @@ export default {
 
     SortProduct(){
       getAllProductsAPI().then((res)=>{
-        this.allProducts=res.data.products;
-        this.products=[];
+          this.allProducts=res.data.products;
+          this.products=[];
          //把原本的資料清空
-        this.allProducts.forEach((item)=>{
+          this.allProducts.forEach((item)=>{
           if(item.category == this.category){
             this.products.push(item)
           }else if(this.category ==='sale' ){
@@ -90,8 +96,8 @@ export default {
               }
           }
         })
+
       })
-      .catch(err=>console.log(err))
     }
 
 

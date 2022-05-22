@@ -118,13 +118,11 @@ export default {
           this.order=res.data.order;
           this.orderlist=res.data.order.products;
        })
-       .catch(err=>console.log(err))
     },
     payorder(){
       postPaymentAPI(this.orderId).then((res)=>{
           this.getOrder();
       })
-      .catch(err=>console.log(err))
 
     }
     
