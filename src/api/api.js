@@ -1,8 +1,6 @@
 //匯入http
-import axios from 'axios'
-// import http from '../utils/https'
+// import axios from 'axios'
 import service from '../utils/request'
-
 
 let resquest = process.env.APIPATH
 
@@ -24,7 +22,7 @@ export function getProductAPI(id){
  }
 
 //購物車
-export function getCartAPI(id){
+export function getCartAPI(){
     return  service.get (`${resquest}api/${process.env.CUSTOMPATH}/cart`)
  }
 
@@ -88,6 +86,20 @@ export function addCouponAPI(data){
     return  service.post (`${resquest}api/${process.env.CUSTOMPATH}/admin/coupon`,data)
 }
 
+//上傳圖片
+export function fileUploadAPI(data){
+    const file=data;
+    const formData = new FormData();
+    formData.append('file-to-upload',file)
+    return  service.post (`${resquest}api/${process.env.CUSTOMPATH}/admin/upload`,formData,{
+        headers: {
+    'Content-Type': 'multipart/form-data' //更改成 FormData 的格式
+    }
+    })
+
+
+}
+
 
 
 
@@ -98,7 +110,7 @@ export function updateBsProductAPI(id,data){
 }
 //更新後台優惠券
 export function updateBscCouponAPI(id,data){
-    return service.put(`${resquest}api/${process.env.CUSTOMPATH}/admin/coupon/${id}`,data)
+    return service.put(`${resquest}api/${process.env.CUSTOMPATH}/admin/coupons/${id}`,data)
 }
 //更新訂單
 export function updateOrderDetailAPI(id,data){
