@@ -15,13 +15,9 @@
                <ol class="breadcrumb">
                  <li class="breadcrumb-item">
                    <router-link :to="{name:'Category',params:{category:'allproduct'}}">所有商品</router-link>
-                   <!-- <a href="#/"><p style="font-size:18px">首頁</p></a> -->
                    </li>
                  <li class="breadcrumb-item" aria-current="page">
                   <router-link :to="{name:'Category',params:{category:product.category}}">{{product.category}}</router-link>
-                   <!-- <a :href="'#/'+product.category">
-                   {{product.category}}
-                   </a> -->
                    </li>
                  <li class="breadcrumb-item active" style="color:#212529 " aria-current="page">{{product.title}}</li>
                </ol>
@@ -62,9 +58,14 @@
             </div> 
             <div class="input-group">
               <button class="btn down" @click="btnMinus">-</button>
-              <input type="text" class="text-center quantity" value="1" v-model="product.num"> 
+              <div class="text-center quantity">{{product.num}}</div>
+              <!-- <input type="text" class="text-center quantity" value="1" v-model="product.num">  -->
               <button class="btn up" @click="btnPlus">+</button>
             </div>
+            <div v-if="overlimit">
+              <p class="text-danger">已達庫存上限</p>
+            </div>
+            
   
             <div class="addCart" @click.prevent="addtoCart(product)">
                加入購物車
@@ -126,10 +127,11 @@ export default {
       return {
           product:{
             num:""
+           
           },
+          overlimit:false,
           tempData: JSON.parse(localStorage.getItem('tempData')) || [],
           //用localStorage先暫存當前的資料，下面再把同品項的訂單數量合併
-          isLoading:false,
           category:"",
           productId:"",
           carouselItems:"3",
@@ -148,20 +150,27 @@ export default {
         vm.category=vm.product.category;
         vm.productId=id;
         this.$set(vm.product, 'num', 1) 
+        console.log(this)
         //num 本身不存在於 Vue 中，而是被後面添加的，要用＄set加進資料庫避免部份商品的數量無法被更動
       })
       .catch(err=>console.log(err))
 
     },
     btnPlus(){
+      if(this.product.num>19){
+        this.overlimit=true
+        this.product.num=19;
+
+      }
       this.product.num++;
 
       },
     btnMinus(){
       if(this.product.num<2){
         this.product.num=1;
-      }else{
-        this.product.num--;
+      }else if(this.product.num<21){
+        this.overlimit=false
+        this.product.num--; 
       }
       
     },
@@ -170,7 +179,8 @@ export default {
       const vm=this;
       const cartItems=[];
       //存購物車中商品的id
-      vm.isLoading=true;
+
+
       vm.tempData.forEach((item)=>cartItems.push(item.product_id))
       //存取已經加入購物車的全部商品id
       if(cartItems.indexOf(data.id) === -1){
@@ -189,6 +199,7 @@ export default {
       
         }else{
           // 如果這是之前已經加過的品項，就找到它的序號並將內容的數量相加後存在updateData中
+          
           let updateData={}
 
           vm.tempData.forEach((item,keys)=>{
@@ -214,7 +225,6 @@ export default {
             localStorage.setItem('tempData', JSON.stringify(vm.tempData))
             
         }
-        vm.isLoading=false;
         this.$emit('localData');
         //觸發父層dashBoard.vue的購物車數字更新
         
@@ -239,21 +249,18 @@ export default {
   padding-bottom: 5px;
 }
 .input-group{
-  margin: 30px 0 ;
+  margin: 30px 0;
 }
 .input-group .btn{
   background-color: #fff;
   border: 1px solid black;
   border-radius: 0;
 }
-.input-grounp .quantity{
-  width: 50px;
-  border-radius: 0;
-}
 .quantity{
   padding: 6px 12px;
   border: 1px solid #ccc;
   width: 50px;
+  background-color: #fff;
 } 
 .addCart{
   margin: 30px 0;
