@@ -62,7 +62,6 @@ export default {
                this.login=false;
              }
            })
-           .catch(err=>console.log(err))
          },
     },
     
