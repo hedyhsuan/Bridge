@@ -131,8 +131,6 @@ $(window).scroll(function(){
     $(".nav_list").removeClass("navbar-dark");
     $(".nav_list").addClass("navbar-light");
     $(".nav_list").addClass("bgcolor_white");
-  
-
     }
     if($(window).scrollTop()<100 ){
     $(".nav_list").addClass("navbar-dark");
@@ -192,7 +190,6 @@ export default {
         goRouter(){
           //接收組件navbar_collapse的觸發更新並操作router-link中category的方法
           this.$refs['target'].getProducts() 
-          console.log("") 
 
         }
         

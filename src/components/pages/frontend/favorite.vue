@@ -71,27 +71,7 @@ export default {
                 })
             })
 
-        }    //   getProducts(){
-    //    const api=`${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products/all`;
-    //    const vm=this;
-    //    this.isLoading=true;
-    //    this.$http.get(api).then((response) => {
-    //        this.isLoading=false;
-    //    vm.allProducts=response.data.products;
-    //      vm.allProducts.forEach((item)=>{
-    //         //所有的商品
-    //           vm.favorite.forEach((item2)=>{
-    //               //localstorage的關注商品
-    //               if(item.title==item2){
-    //                   //若所有商品中的商品名稱符合關注商品名稱就加進myfavorite
-    //                   vm.myfavorite.push(item)
-    //               }
-    //           })
-    //        })
-
-    // })
-       
-    // },   
+        }  
 
 
     },
