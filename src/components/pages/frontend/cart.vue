@@ -114,10 +114,10 @@ export default {
 },
     methods: {
         getData(){
-            console.log(this.tempData)
+            // console.log(this.tempData)
             getCartAPI().then((res)=>{
                 this.allCart=res.data.data.carts;
-                console.log(this.allCart)
+                // console.log(this.allCart)
             })
         },
 
@@ -141,7 +141,7 @@ export default {
             vm.tempData.forEach((item,key)=>{
                 if(localItem.product_id===item.product_id){
                      vm.tempData.splice(key,1)
-                     console.log(item.product_id)
+                    //  console.log(item.product_id)
                     //  vm.removeCartItem(localItem.product_id)
                 }
                 localStorage.setItem('tempData', JSON.stringify(vm.tempData))
@@ -193,15 +193,18 @@ export default {
                 qty:item.qty
               }
             //存入後台
+            
             postCartAPI({data:cartLocalstorage}).then((res)=>{
-                
+                //localStorage的商品長度
                 let product = this.tempData.length
                 console.log(product)
+
                 let num=0
                 if(res.message=='已加入購物車'){
                     num++
                 }
                 if(num=product){
+                    console.log("加總長度",num)
                      this.$router.push({name:'Checkout'})  
 
                 }
