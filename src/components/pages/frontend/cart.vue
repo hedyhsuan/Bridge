@@ -31,7 +31,7 @@
                           type="number"
                           class="form-control"
                           v-model.number="item.qty"
-                          @change="updateCart(item)"
+                          @change="updateCart()"
                   
                         />
                       </td>
@@ -114,14 +114,11 @@ export default {
 },
     methods: {
         getData(){
+            console.log(this.tempData)
             getCartAPI().then((res)=>{
                 this.allCart=res.data.data.carts;
-                // console.log(this.allCart)
-   
-             
+                console.log(this.allCart)
             })
-            
-
         },
 
         getTotalPr(){
@@ -132,37 +129,55 @@ export default {
             })
             
         },
+
         getProduct(id){
         this.$router.push({name:'SingleProduct',params:{id:id}})
-        // this.$router.push(`/${id}`)
      
         },
+
 
         removeItem(localItem){
             const vm=this;
             vm.tempData.forEach((item,key)=>{
                 if(localItem.product_id===item.product_id){
                      vm.tempData.splice(key,1)
+                     console.log(item.product_id)
+                    //  vm.removeCartItem(localItem.product_id)
                 }
                 localStorage.setItem('tempData', JSON.stringify(vm.tempData))
                 // 更新的資料傳回localStorage
                 vm.getTotalPr()
                 // 刪除後重新計算價格
-            })
+            })   
+            // vm.allCart.forEach((item)=>{
+            //     if(localItem.product_id == item.product_id){
+            //         vm.removeCartItem(item.product_id)
+            //     }
+            // })
+
             this.$emit('localData');
-          
+        },
+
+        removeCartItem(id){
+            const vm=this
+            deleteCartItemAPI(id).then((res)=>{
+                console.log(vm.allCart)
+            })
         },
         updateCart(){
             const vm=this;
             vm. getTotalPr()
+            console.log(vm.tempData)
             localStorage.setItem('tempData', JSON.stringify(vm.tempData))
 
             this.$emit('localData');
             //觸發父層dashBoard.vue的購物車數字更新
+
       },
             
         //TODO
         goCheckout(){
+
             // 先把原本後台購物車清空
             this.allCart.forEach((item)=>{
               deleteCartItemAPI(item.id).then((res)=>{
@@ -171,20 +186,34 @@ export default {
             })
 
             // localStorage資料存進後台
+            
             this.tempData.forEach((item)=>{
               const cartLocalstorage={
                 product_id:item.product_id,
                 qty:item.qty
               }
+            //存入後台
             postCartAPI({data:cartLocalstorage}).then((res)=>{
+                
+                let product = this.tempData.length
+                console.log(product)
+                let num=0
+                if(res.message=='已加入購物車'){
+                    num++
+                }
+                if(num=product){
+                     this.$router.push({name:'Checkout'})  
+
+                }
+                
 
             }) 
-
-            })
-            this.$router.push({name:'Checkout'})  
             
-             
+            }) 
 
+            //跳轉頁面 
+            
+           
         },
     },
     created() {

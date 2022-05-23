@@ -59,8 +59,8 @@ export function logoutAPI(){
     return service.post(`${resquest}logout`)
 }
 //新增後台商品
-export function addBsProductAPI(params){
-    return service.post(`${resquest}api/${process.env.CUSTOMPATH}/admin/product`,params)
+export function addBsProductAPI(data){
+    return service.post(`${resquest}api/${process.env.CUSTOMPATH}/admin/product`,data)
 }
 
 //加入購物車
@@ -130,7 +130,8 @@ export function deleteBsProductAPI(id){
     return service.delete(`${resquest}api/${process.env.CUSTOMPATH}/admin/product/${id}`)
 }
 
-//刪除後台商品
+//刪除後台優惠券
 export function deleteBsCouponAPI(id){
     return service.delete(`${resquest}api/${process.env.CUSTOMPATH}/admin/coupon/${id}`)
 }
+
