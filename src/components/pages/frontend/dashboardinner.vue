@@ -76,7 +76,7 @@
                </div>
              </div>
              <div  class="col-12 col-lg-10">
-               <img class="d-image" src="https://imgur.com/ww1ZTAn.jpg" alt="">
+               <img class="d-image" src="https://imgur.com/UB0XbOX.jpg" alt="">
              </div>
 
            </div>
@@ -153,7 +153,7 @@ export default {
   }
 
   .promo-inner_1{
-    background-image: url("https://imgur.com/iHfOQB9.jpg");
+    background-image: url("https://imgur.com/8uJC9gE.jpg");
     background-size: cover;
     height: 100%;
     padding: 25px;

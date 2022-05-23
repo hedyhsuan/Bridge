@@ -14,7 +14,7 @@
                       <div class="category_bg">
 
                         <router-link :to="`/products/sale`">
-                          <img src="https://imgur.com/xvuODmz.jpg" alt="">
+                          <img src="https://imgur.com/hYwWBEP.jpg" alt="">
                           <div class="category">
                             <h3>SALE</h3>
                         </div>
