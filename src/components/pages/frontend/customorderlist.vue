@@ -75,7 +75,7 @@
                   </tr>
                   <tr>
                     <th>備註</th>
-                    <td></td>
+                    <td>{{order.message}}</td>
                   </tr>
                   <tr>
                     <th>付款狀態</th>
@@ -117,6 +117,7 @@ export default {
        getCusOrderlistAPI(this.orderId).then((res)=>{
           this.order=res.data.order;
           this.orderlist=res.data.order.products;
+          console.log(this.order)
        })
     },
     payorder(){
