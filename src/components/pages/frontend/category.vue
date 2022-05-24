@@ -18,8 +18,9 @@
               class="col-md-4 col-12"
               v-for="item in products" :key="item.id"  
               :selectitem="item"
-            v-on="$listeners"
+              v-on="$listeners"
               ></productlist>
+              <!-- $listeners傳遞productlist中我的最愛更新至此父層dashboard更新數量 -->
             <div class="col-12" v-show="pagination">
               <pagination v-show="products.length>=10" :page= pagination @switchPage="getProducts"></pagination>
               <!-- 將此頁的data pagination動態的存進page中,子頁面再用prop接收 -->
@@ -61,20 +62,12 @@ export default {
       },
 
     methods: {
-      //TODO
       getProducts(page){
         this.category=this.$route.params.category
         if (this.category==='allproduct'){
            getProductsAPI(page).then((res)=>{
                this.products=res.data.products;
                this.pagination=res.data.pagination;
-             
-            //  if(res.data.success){
-            //    this.products=res.data.products;
-            //    this.pagination=res.data.pagination;
-            //  }else{
-            //    console.log(res.data.message)
-            //  }
             
            })
         }else{
