@@ -231,9 +231,15 @@ export default {
 <style scoped>
 
 .cart_page{
-  margin: 100px 0 0;
+  margin-top: 100px;
   padding: 100px 0;
   background-color: #f5f4f1;
+}
+@media(max-width:767px){
+    .cart_page{
+        margin-top: 80px;
+
+    }
 }
 
 

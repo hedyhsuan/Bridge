@@ -10,7 +10,7 @@
                
             </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between align-items-center">
           <div >   
             <button class="navbar-toggler" @click="backgroungblur"  type="button" data-toggle="collapse" data-target="#nav"> 
               <span >
@@ -20,27 +20,26 @@
           </div> 
 
           <div>
-           <ul class="cart" >
+           <div class="cart" >
              <!-- <li class="cart_2">
                 <a href="">
                     <i class="fas fa-user" style="font-size:20px;"></i>
                  </a>
              </li> -->
-             <li class="cart_1">
+             <div class="cart_1">
                 <router-link :to="{name: 'Favorite'}">
-                <!-- <i class="fas fa-search" style="font-size:20px;"></i> -->
                   <i class="fas fa-heart"  style="font-size:20px;"></i>
                   <span :class="{ 'd-none': !heartQuantity }">{{heartQuantity}}</span>
                 </router-link>
-             </li>
+             </div>
          
-             <li class="cart_3">
+             <div class="cart_3">
                  <router-link :to="{name: 'Cart'}">
                    <i class="fas fa-shopping-cart" style="font-size:20px;"></i>
                    <span >{{cartQuantity}}</span>
                     </router-link>
-             </li>
-             </ul>
+             </div>
+             </div>
            </div> 
          </div>     
    
@@ -233,7 +232,8 @@ export default {
 }
 @media(max-width:575px){
   .nav_logo{
-      width: 150px;
+    top:60%;
+    width: 150px;
     height: 35px;
   }
 }
@@ -255,11 +255,12 @@ export default {
 }
 
 .cart{
-  text-align: right;
+  /* text-align: right; */
+  display: flex;
 }
 
-.cart>li{
-  display: inline-block;
+.cart>div{
+  /* display: inline-block; */
   margin: 5px 10px;
 }
 @media(max-width:767px){
