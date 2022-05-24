@@ -49,27 +49,27 @@ export default {
         {
           id: 3,
           categoryName: "桌椅",
-          nameEn: "chair"
+          nameEn: "Chair"
         },
         {
           id: 4,
           categoryName: "收納櫃",
-          nameEn: "storage"
+          nameEn: "Storage"
         },
         {
           id: 5,
           categoryName: "寢具",
-          nameEn: "bedding"
+          nameEn: "Bedding"
         },
         {
           id: 6,
           categoryName: "家飾",
-          nameEn: "decoration"
+          nameEn: "Decoration"
         },
         {
           id: 7,
           categoryName: "燈具",
-          nameEn: "lighting"
+          nameEn: "Lighting"
         },
                   {
           id: 8,

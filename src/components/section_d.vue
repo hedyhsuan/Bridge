@@ -24,7 +24,7 @@
 
                     <div class="col-sm-6 sortItem">
                         <div class="category_bg"> 
-                          <router-link :to="`/products/bedding`">
+                          <router-link :to="`/products/Bedding`">
                             <img src="https://imgur.com/4q9o7Mq.jpg" alt="">
                             <div class="category">
                               <h3>Bedding</h3>
@@ -36,7 +36,7 @@
 
                 <div class="sortIteml-1">
                     <div class="category_bg ">  
-                      <router-link :to="`/products/chair`">
+                      <router-link :to="`/products/Chair`">
                         <img src="https://imgur.com/iKpU2oY.jpg" alt="">
                         <div class="category">
                           <h3>Sofas/Chairs</h3>
@@ -50,7 +50,7 @@
             <div  class="col-12 col-md-6">
                  <div class="sortIteml-2">
                     <div class="category_bg"> 
-                      <router-link :to="`/products/lighting`">
+                      <router-link :to="`/products/Lighting`">
                         <img src="https://imgur.com/TVGsBKG.jpg" alt="">
                         <div class="category">
                           <h3>Lighting</h3>
@@ -61,7 +61,7 @@
                   <div class="row sortItems">
                     <div class="col-sm-6 sortItem">
                       <div class="category_bg"> 
-                        <router-link :to="`/products/decoration`">
+                        <router-link :to="`/products/Decoration`">
                           <img src="https://imgur.com/VEzv5k9.jpg" alt="">
                           <div class="category">
                             <h3>Decor</h3>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="col-sm-6 sortItem">
                       <div class="category_bg">  
-                        <router-link :to="`/products/storage`">
+                        <router-link :to="`/products/Storage`">
                           <img src="https://imgur.com/x1BJ3S4.jpg" alt="">
                           <div class="category">
                             <h3>Storage</h3>
