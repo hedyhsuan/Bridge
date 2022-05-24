@@ -9,7 +9,7 @@
                  <thead>
                    <th >商品</th>
                    <th width="20%">單價</th>
-                   <th width="10%" class="text-center">數量</th>
+                   <th width="15%" class="text-center">數量</th>
                    <th width="15%" class="text-center">小計</th>
                    <th width="5%"  class="text-center">刪除</th>
                  </thead>
@@ -28,6 +28,7 @@
                       <td class="text-center">
                          <input
                           min="1"
+                          max="20"
                           type="number"
                           class="form-control"
                           v-model.number="item.qty"
@@ -41,7 +42,8 @@
                           <a href="" @click.prevent="removeItem(item)">
                               <i class="fa fa-times"></i>
                           </a>
-                          </td>
+                    </td>
+                    
 
                   </tr>
                   <tr>
