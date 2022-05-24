@@ -61,8 +61,8 @@
                </router-link>
              </li>
              
-             <li class="nav-item " @click="goBottom">
-              <a href="#" class="main-nav-link d-flex">聯絡
+             <li class="nav-item ">
+              <a href="#btm" class="main-nav-link d-flex">聯絡
                 <p> Contact</p>
               </a>
              </li>
