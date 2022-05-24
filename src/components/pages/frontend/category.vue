@@ -7,7 +7,7 @@
           </div>
         </div>
       <div class="container product-wrap">
-        <div class="row" >
+        <div class="row justify-content-center" >
           <div class="col-md-3">
             <CategorySidebar @getProduct="getProducts" :category="category"></CategorySidebar>
             <!-- 點擊後更新頁面 -->
@@ -15,7 +15,7 @@
           </div>
           <div class="col-md-9 row">
             <productlist
-              class="col-md-4 col-12"
+              class="col-lg-4 col-md-6 col-12"
               v-for="item in products" :key="item.id"  
               :selectitem="item"
               v-on="$listeners"
