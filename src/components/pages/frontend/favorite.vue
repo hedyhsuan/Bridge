@@ -9,7 +9,7 @@
 
         <div class="container product-wrap">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 sidebar" >
                   <CategorySidebar></CategorySidebar>
                 </div>
 
@@ -81,3 +81,7 @@ export default {
     },  
 }
 </script>
+
+<style scoped>
+    
+</style>

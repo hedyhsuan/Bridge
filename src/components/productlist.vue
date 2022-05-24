@@ -23,7 +23,6 @@
                 </a>
               <a href="#" class="product-like-icon" data-tip="Add to Wishlist" @click.prevent="switchHeart(selectitem)" > 
                     <i :class="changeIcon"></i>
-                     <!-- <i class="far fa-heart"></i> -->
               </a>
     
             </div>
