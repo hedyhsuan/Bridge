@@ -107,7 +107,8 @@ export default {
         //localStorage儲存的商品資料
         allCart:[],
         //後台儲存的商品資料
-        totalPrice:0, 
+        totalPrice:0,
+        num:0 
 
         
     };
@@ -177,7 +178,7 @@ export default {
             
         //TODO
         goCheckout(){
-
+            
             // 先把原本後台購物車清空
             this.allCart.forEach((item)=>{
               deleteCartItemAPI(item.id).then((res)=>{
@@ -194,22 +195,18 @@ export default {
               }
             //存入後台
             
+            //判定所有商品都加入購物車
             postCartAPI({data:cartLocalstorage}).then((res)=>{
                 //localStorage的商品長度
                 let product = this.tempData.length
-                console.log(product)
-
-                let num=0
-                if(res.message=='已加入購物車'){
-                    num++
+                if(res.data.message=='已加入購物車'){
+                    this.num++
+                    // console.log('已加入',this.num)
                 }
-                if(num=product){
-                    console.log("加總長度",num)
+                if(this.num==product){
+                    // console.log("加總長度",this.num)
                      this.$router.push({name:'Checkout'})  
-
                 }
-                
-
             }) 
             
             }) 
