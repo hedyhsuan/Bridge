@@ -27,6 +27,7 @@
                       <td>{{item.price|currency}}</td>
                       <td class="text-center">
                          <input
+                         oninput="if(value>20)value=20;if(value<1)value=1"
                           min="1"
                           max="20"
                           type="number"
@@ -160,7 +161,13 @@ export default {
         updateCart(){
             const vm=this;
             vm. getTotalPr()
-            // console.log(vm.tempData)
+            // if(item.num<1){
+            //     num=1
+            // }else if(item.num>){
+
+            // }
+            
+
             localStorage.setItem('tempData', JSON.stringify(vm.tempData))
 
             this.$emit('localData');
