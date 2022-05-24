@@ -182,6 +182,7 @@ export default {
             // 先把原本後台購物車清空
             this.allCart.forEach((item)=>{
               deleteCartItemAPI(item.id).then((res)=>{
+                //   console.log(res)
                   
               })
             })
@@ -201,10 +202,9 @@ export default {
                 let product = this.tempData.length
                 if(res.data.message=='已加入購物車'){
                     this.num++
-                    // console.log('已加入',this.num)
+                    // console.log(this.num)
                 }
                 if(this.num==product){
-                    // console.log("加總長度",this.num)
                      this.$router.push({name:'Checkout'})  
                 }
             }) 
