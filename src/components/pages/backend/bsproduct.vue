@@ -206,19 +206,19 @@ export default {
             pagination:{},
             status:{
               fileUploading:false,
-            }
+            },
+            page:1,
 
         }
     },
     methods: {
       getProducts(page){
         getBsProductsAPI(page).then((res)=>{
-          if(res.data.success){
+           this.page=page
+           //將頁面訊息儲存，編輯完後回到該頁面
             this.products=res.data.products;
             this.pagination=res.data.pagination;
-          }else{
-            console.log(res.data.message)
-          }
+ 
         })
 
       },
@@ -250,22 +250,14 @@ export default {
       //打開modal的時候已先判定isNew
       if(this.isNew){
         addBsProductAPI({data:this.tempProduct}).then((res)=>{
-          if (res.data.success){
              $("#productModal").modal("hide");
              this.getProducts();
-          }else{
-            //TODO
-             console.log(res.data.message)
-          }
+
         })
       }else{
         updateBsProductAPI(this.tempProduct.id,{data:this.tempProduct}).then((res)=>{
-          if (res.data.success){
              $("#productModal").modal("hide");
-             this.getProducts();
-          }else{
-             console.log(res.data.message)
-          }
+             this.getProducts(this.page);
         })
 
       }
@@ -274,12 +266,8 @@ export default {
 
     deleteProduct(){
       deleteBsProductAPI(this.tempProduct.id).then((res)=>{
-        if(res.data.success){
           $("#delProductModal").modal("hide");
           this.getProducts();
-        }else{
-          console.log(response.data);
-        }
 
       })
 
