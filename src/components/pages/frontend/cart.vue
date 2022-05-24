@@ -69,7 +69,6 @@
                    </div>
                    <div class="goCheckout">
                        <div @click.prevent="goCheckout" >結帳</div>
-                        <!-- <a href="" @click.prevent="goCheckout" >結帳</a> -->
                    </div>
 
                  </div>
@@ -117,10 +116,8 @@ export default {
 },
     methods: {
         getData(){
-            // console.log(this.tempData)
             getCartAPI().then((res)=>{
                 this.allCart=res.data.data.carts;
-                // console.log(this.allCart)
             })
         },
 
@@ -132,7 +129,6 @@ export default {
             })
             
         },
-
         getProduct(id){
         this.$router.push({name:'SingleProduct',params:{id:id}})
      
@@ -145,18 +141,12 @@ export default {
                 if(localItem.product_id===item.product_id){
                      vm.tempData.splice(key,1)
                     //  console.log(item.product_id)
-                    //  vm.removeCartItem(localItem.product_id)
                 }
                 localStorage.setItem('tempData', JSON.stringify(vm.tempData))
                 // 更新的資料傳回localStorage
                 vm.getTotalPr()
                 // 刪除後重新計算價格
             })   
-            // vm.allCart.forEach((item)=>{
-            //     if(localItem.product_id == item.product_id){
-            //         vm.removeCartItem(item.product_id)
-            //     }
-            // })
 
             this.$emit('localData');
         },
@@ -170,7 +160,7 @@ export default {
         updateCart(){
             const vm=this;
             vm. getTotalPr()
-            console.log(vm.tempData)
+            // console.log(vm.tempData)
             localStorage.setItem('tempData', JSON.stringify(vm.tempData))
 
             this.$emit('localData');
@@ -184,13 +174,11 @@ export default {
             // 先把原本後台購物車清空
             this.allCart.forEach((item)=>{
               deleteCartItemAPI(item.id).then((res)=>{
-                //   console.log(res)
                   
               })
             })
 
             // localStorage資料存進後台
-            
             this.tempData.forEach((item)=>{
               const cartLocalstorage={
                 product_id:item.product_id,

@@ -29,9 +29,9 @@
        <!-- 小圖 --> 
           <div class="col-md-3 ">     
             <div class="mcs-item ">
-               <a href="">
+               <div>
               <img class="w-100" :src="product.imageUrl" alt="">
-              </a>
+             </div>
             </div>
           </div>
       <!-- 大圖 -->
@@ -150,10 +150,9 @@ export default {
         vm.category=vm.product.category;
         vm.productId=id;
         this.$set(vm.product, 'num', 1) 
-        console.log(this)
+        // console.log(this)
         //num 本身不存在於 Vue 中，而是被後面添加的，要用＄set加進資料庫避免部份商品的數量無法被更動
       })
-      .catch(err=>console.log(err))
 
     },
     btnPlus(){

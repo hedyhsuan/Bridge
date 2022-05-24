@@ -10,7 +10,8 @@
               <div class="col-12 col-md-5 ">
                 <div class="X_left " data-aos='fade-left' data-aos-duration="2000" data-aos-once="true">
                   <div class="promo-inner_1">
-                    <a href="#" class="dec-cover"></a>                               
+                    <router-link  class="dec-cover" :to="`/products/Bedding`"></router-link>
+                    <!-- <a href="#" class="dec-cover"></a>                                -->
                   </div>
                 </div>
               </div>
@@ -46,17 +47,17 @@
            </div>
            <div class="row sectionCImg" data-aos='fade-down' data-aos-delay="400" data-aos-duration="1000" data-aos-once="true"> 
              <div class="col-12 col-sm-6 col-md-4 sectionCImg_d">
-               <router-link :to="`/products/chair`">
+               <router-link :to="`/products/Chair`">
                  <img src="https://img.made.com/image/upload/c_pad,d_madeplusgrey.svg,f_auto,h_1320,q_auto:good,w_1060/v1/mws/86cfea66-c355-4d68-8c66-55cade57d01a_StoragePOD1_negenentachtigvierkantemeter.jpg" alt="">
                </router-link>
              </div>
              <div class="col-12 col-sm-6 col-md-4">
-                <router-link :to="`/products/chair`">
+                <router-link :to="`/products/Chair`">
                  <img src="https://img.made.com/image/upload/c_pad,d_madeplusgrey.svg,f_auto,h_1320,q_auto:good,w_1060/v1/mws/a53dadc4-5462-4434-ac09-306f8babf8f1_BottomRIGHTpod.jpg" alt="">
                 </router-link>
              </div>
              <div class="col-12 col-sm-6 col-md-4">
-               <router-link :to="`/products/chair`">
+               <router-link :to="`/products/Chair`">
                  <img src="https://img.made.com/image/upload/c_pad,d_madeplusgrey.svg,f_auto,h_1320,q_auto:good,w_1060/v1/mws/ec1c540a-6d75-4d4d-87d8-0306739258a4_Manal1060x1320_2.jpg" alt="">
                </router-link>
              </div>
