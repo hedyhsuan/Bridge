@@ -28,6 +28,7 @@
                       <td class="text-center">
                          <input
                          oninput="if(value>20)value=20;if(value<1)value=1"
+                         value=""
                           min="1"
                           max="20"
                           type="number"
@@ -117,6 +118,17 @@ export default {
 },
     methods: {
         getData(){
+            //檢查商一商品最大數量
+            const vm=this
+            vm.tempData.forEach((item)=>{
+                if(item.qty>20){
+                    item.qty=20
+                }
+                localStorage.setItem('tempData', JSON.stringify(vm.tempData))
+                this.$emit('localData');
+            })
+
+        
             getCartAPI().then((res)=>{
                 this.allCart=res.data.data.carts;
             })
@@ -161,12 +173,6 @@ export default {
         updateCart(){
             const vm=this;
             vm. getTotalPr()
-            // if(item.num<1){
-            //     num=1
-            // }else if(item.num>){
-
-            // }
-            
 
             localStorage.setItem('tempData', JSON.stringify(vm.tempData))
 
