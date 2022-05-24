@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div data-aos='fade-down' data-aos-duration="1000" data-aos-once="true">
        
           <div class="product-grid ">
             <div class="product-image">

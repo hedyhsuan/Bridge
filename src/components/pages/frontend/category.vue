@@ -13,7 +13,7 @@
             <!-- 點擊後更新頁面 -->
           
           </div>
-          <div class="col-md-9 row"  data-aos='fade-down' data-aos-duration="1000" data-aos-once="true">
+          <div class="col-md-9 row">
             <productlist
               class="col-md-4 col-12"
               v-for="item in products" :key="item.id"  
