@@ -21,11 +21,11 @@
 
           <div>
            <ul class="cart" >
-             <li class="cart_2">
+             <!-- <li class="cart_2">
                 <a href="">
                     <i class="fas fa-user" style="font-size:20px;"></i>
                  </a>
-             </li>
+             </li> -->
              <li class="cart_1">
                 <router-link :to="{name: 'Favorite'}">
                 <!-- <i class="fas fa-search" style="font-size:20px;"></i> -->
@@ -55,7 +55,7 @@
       <router-view  @localData="getTempdata"  @getFavorite="getFavorite"  ref='target'></router-view>
 
             <!-- 訂閱 -->
-     <div class="bottomImfo ">
+     <div id="btm" class="bottomImfo ">
         <div class="container signup ">
           <div class="signup_title">
             <h3>訂閱我們的商品情報</h3>
