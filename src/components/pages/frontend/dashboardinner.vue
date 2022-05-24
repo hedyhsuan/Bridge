@@ -106,7 +106,7 @@ import SectionD from "../../section_d"
 export default {
     data() {
         return {
-            category:"bedding",
+            category:"Bedding",
             // promote跑馬燈的商品類別
             carouselItems:"2"
             // promote跑馬燈的商品顯示數量
