@@ -62,7 +62,6 @@ export default {
       }
 
     },
-    // props:['category','carouselItems','productId'],
     methods: {
         getProducts(){
             getAllProductsAPI().then((res)=>{
