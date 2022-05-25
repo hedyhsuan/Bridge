@@ -279,5 +279,9 @@ export default {
    font-weight: 600;
  
 }
+.signup_input:focus{
+ border-color: #050505;
+  outline: 0;
 
+}
 </style>
