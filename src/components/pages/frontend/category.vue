@@ -8,21 +8,34 @@
         </div>
       <div class="container product-wrap">
         <div class="row justify-content-center" >
-          <div class="col-md-3">
-            <CategorySidebar @getProduct="getProducts" :category="category"></CategorySidebar>
+                  <!-- breadcrumb -->
+          <div class="col-12 breadcrumb_group">
+             <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                 <li class="breadcrumb-item">
+                   <router-link :to="{name:'Category',params:{category:'allproduct'}}">所有商品</router-link>
+                   </li>
+                 <li class="breadcrumb-item" aria-current="page">
+                  <router-link :to="{name:'Category',params:{category:category}}">{{category}}</router-link>
+                   </li>
+               </ol>
+             </nav>
+          </div>
+
+          <div class="sidebar col-md-3" >
+            <CategorySidebar @getProduct="getProducts" :category="category" ></CategorySidebar>
             <!-- 點擊後更新頁面 -->
-          
           </div>
           <div class="col-md-9 row">
             <productlist
-              class="col-lg-4 col-md-6 col-12"
+              class="col-md-4 col-sm-6 col-12"
               v-for="item in products" :key="item.id"  
               :selectitem="item"
               v-on="$listeners"
               ></productlist>
               <!-- $listeners傳遞productlist中我的最愛更新至此父層dashboard更新數量 -->
             <div class="col-12" v-show="pagination">
-              <pagination v-show="products.length>=10" :page= pagination @switchPage="getProducts"></pagination>
+              <pagination  :page= pagination @switchPage="getProducts"></pagination>
               <!-- 將此頁的data pagination動態的存進page中,子頁面再用prop接收 -->
               <!-- @switchPage是pagination這個component向外觸發此實體getProduct()的媒介小鈴鐺 --> 
             </div>
@@ -80,6 +93,7 @@ export default {
           this.allProducts=res.data.products;
           this.products=[];
          //把原本的資料清空
+           this.pagination=res.data.pagination;
           this.allProducts.forEach((item)=>{
           if(item.category == this.category){
             this.products.push(item)
@@ -146,5 +160,27 @@ export default {
 .bannerImg{
   object-position: center -100px
 } 
+
+
+@media(max-width:767px){
+  .sidebar{
+    display: none;
+  }
+}
+
+
+.breadcrumb{
+  background-color:rgb(0,0,0,0);
+  /* padding: 0 15px; */
+  
+}
+.breadcrumb_group{
+  display: none;
+}
+@media(max-width:767px){
+  .breadcrumb_group{
+    display: block;
+  }
+}
   
 </style>
