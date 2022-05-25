@@ -252,12 +252,13 @@ export default {
 }
 .input-group .btn{
   background-color: #fff;
-  border: 1px solid black;
+  border: 1px solid #ccc;
   border-radius: 0;
 }
 .quantity{
   padding: 6px 12px;
-  border: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   width: 50px;
   background-color: #fff;
 } 
