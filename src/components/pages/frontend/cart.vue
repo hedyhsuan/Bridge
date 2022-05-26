@@ -386,7 +386,7 @@ export default {
 }
 @media(max-width:450px){
     .mobile_right{
-    margin-right: 55px;
+    margin-right: 45px;
 
 }
 }
