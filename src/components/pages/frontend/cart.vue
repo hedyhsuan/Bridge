@@ -386,7 +386,13 @@ export default {
 }
 @media(max-width:450px){
     .mobile_right{
-    margin-right: 45px;
+    margin-right: 50px;
+
+}
+}
+@media(max-width:400px){
+    .mobile_right{
+    margin-right: 30px;
 
 }
 }
