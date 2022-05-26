@@ -79,6 +79,7 @@ export default {
         // this.$router.push(`/products/${cate}`)
         this.$emit('getProduct'); 
          // 發送去父層更新頁面
+
         
       },
       switchCate(){

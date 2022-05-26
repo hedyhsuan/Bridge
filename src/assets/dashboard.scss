@@ -95,6 +95,11 @@ body {
     padding: .55rem .65rem;
 
   }
+  @media (max-width:575px){
+    .navbar-toggler{
+      border:none;
+     }
+  }
   .navbar-dark  .navbar-toggler {
      color: white;
      border-color:white ;
@@ -150,7 +155,7 @@ body {
   }
 
   .categories__backdrop{
-    cursor: pointer;
+    // cursor: pointer;
     // visibility: hidden;
     transition: all .3s ease-in;
     position: fixed;
@@ -323,135 +328,7 @@ body {
 
 
 
-  // sectionC
-.line{
-  width: 2px;
-  height:80px;
-  background-color: rgba(34, 34, 34, 0.7);
-  margin: auto;
 
-}
-.sectionC{
-  margin-top:50px;
-  
-  
-}
-.c-content{
-  width: 80%;
-  margin: 40px auto;
-}
-
-.sectionCImg>div>a>img{
-  width: 100%;
-}
-@media (max-width:767px){
-  .sectionCImg>div>a>img{
-    margin-top: 50px;
-  }
-}
-@media (max-width:767px){
-  .sectionCImg_d{
-    display: none;  
-  }
-}
-
-
-// section_d----------------------------------
-.section_d{
-  margin: 100px 0;
-}
-.sortIteml{
-
- overflow: hidden;
-}
-.sortIteml>a>img{
-  width: 100%;
-}
-
-.sortItems{
-  // padding: 0 15px;
-  // margin-bottom: 20px;
-}
-.sortItem{
-  position: relative;
-  height: auto;
-  padding: 0;
-  padding: 0 15px ;
-}
-
-
-.category_bg{
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  background-color: black;
-  text-align: center;
-
-}
-.category{
-  position: absolute;
-  width: 100%;
-  top: 50%;
-}
-
-
-
-.category>h3{ 
-  
-  color: #fff;
-  transition: 0.3s ease-in-out;
-}
-
-.category_bg:hover{
-  .category>h3{
-    font-size: 1.5rem;
-  } 
-}
-@media(max-width:991px){
-  .category>h3{
-    font-size: 1.5rem;
-  }
-  .category_bg:hover{
-    .category>h3{
-      font-size: 1.25rem;
-    } 
-  }
-}
-
-.category_bg>a>img{
-  width: 100%;
-  height: auto;
-  opacity: 1;
-  transition: 0.5s;
- 
-}
-
-
-.sortIteml-1{
-  margin-top: 25px;
-}
-.sortIteml-2{
-  margin-bottom: 25px;
-}
-@media (max-width:767px){
-  .sortIteml-1{
-    margin: 0;
-  }
-  .sortIteml-2{
-    margin-top: 25px;
-  }
-}
-
-
-.sortIteml>div>a>img{
-  width: 100%;
-  height: auto;
-}
-@media (max-width:767px){
-  .sortItem{
-    padding: 0 15px 25px;
-  }
-}
 
 
 
