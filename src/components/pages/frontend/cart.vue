@@ -427,6 +427,13 @@ export default {
   width: 100%;
 }
 }
+.form-control:focus{
+ border-color: #050505;
+ box-shadow: none;
+
+  outline: 0;
+
+}
 
     
 </style>
