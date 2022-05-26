@@ -291,16 +291,17 @@ export default {
   /* display: inline-block; */
   margin: 5px 10px;
 }
+@media(max-width:575px){
+.cart>div{
+  margin: 2px 5px;
+}
+}
 @media(max-width:767px){
   .cart>li{
     margin: 0px 10px 0 0;
   }
 }
-@media(max-width:575px){
-  .cart>li{
-  margin: 0;
-  }
-}
+
 
 .cart_3 >a>span,.cart_1 >a>span{ 
     font-size: 1rem;
