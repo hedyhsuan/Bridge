@@ -1,22 +1,28 @@
 <template>
     <div>
+        <div class="pro_bg">
           <div class="cart_page">
+                       <div class="col-12 p-0">
+                <div class="productBanner">
+                    <img class="bannerImg w-100" src="https://imgur.com/tYFmCeI.jpg" alt="">
+                </div>
+            </div>
 
              <div class="container" v-if="totalPrice>0">
                 <h4>購物車</h4>
                 <form action="">
                  <table class="w-100" id="shopping-cart" >
-                 <thead>
+                 <thead class="t_head">
                    <th >商品</th>
                    <th width="20%">單價</th>
                    <th width="15%" class="text-center">數量</th>
                    <th width="15%" class="text-center">小計</th>
-                   <th width="5%"  class="text-center">刪除</th>
+                   <th width="10%"  class="text-center">刪除</th>
                  </thead>
-                 <tbody>
-                  <tr v-for="(item) in tempData" :key="item.id">
-                      <td class="cart-item d-flex align-items-center">
-                          <div class="cart-img mr-2" style="max-width:160px">
+                 <tbody class="blockItems">
+                  <tr v-for="(item) in tempData" :key="item.id" class="blockItem">
+                      <td class="cart-item">
+                          <div class="cart-img">
                               <a href="#" @click.prevent="getProduct(item.product_id)">
                                   <img class="w-100" :src="`${item.imageUrl}`" alt="">
                               </a>
@@ -24,8 +30,9 @@
                           <div class="cart-title"> {{item.title}}</div>
 
                       </td>
-                      <td>{{item.price|currency}}</td>
-                      <td class="text-center">
+
+                      <td class="order_price">{{item.price|currency}}</td>
+                      <td class="text-center order_qty">
                          <input
                          oninput="if(value>20)value=20;if(value<1)value=1"
                          value=""
@@ -38,12 +45,53 @@
                   
                         />
                       </td>
-                      <!-- <td class="text-center">{{item.qty}}</td> -->
-                      <td class="text-center">{{item.price*item.qty|currency}}</td>
-                      <td class="text-center">
+                      <td class="text-center order_total">{{item.price*item.qty|currency}}</td>
+                      <td class="text-center order_delete">
                           <a href="" @click.prevent="removeItem(item)">
                               <i class="fa fa-times"></i>
                           </a>
+                    </td>
+
+                    <!-- 行動 -->
+                    
+                    <td class="mobile_show">
+                        <!-- 圖片 -->
+                        <div class="d-flex justify-content-between">
+                            <div class="cart-img">
+                              <a href="#" @click.prevent="getProduct(item.product_id)">
+                                  <img class="w-100" :src="`${item.imageUrl}`" alt="">
+                              </a>
+                               <div class="cart-title text-center"> {{item.title}}</div>
+                          </div>
+                          <div class="mobile_right">
+                            
+                             <!-- 價格 -->
+                             <div class="mobile_order_price ">{{item.price|currency}}</div>
+                             <!-- 數量 -->
+                            <div class="mobile_order_qty ">
+                            <input
+                               oninput="if(value>20)value=20;if(value<1)value=1"
+                               value=""
+                                min="1"
+                                max="20"
+                                type="number"
+                                class="form-control"
+                                v-model.number="item.qty"
+                                @change="updateCart()"
+                              />
+                            </div>
+                            <!-- 小計 -->
+                        <div class="mobile_order_total ">小計:{{item.price*item.qty|currency}}</div>
+
+                          </div>
+                          <div>
+                              <a href="" @click.prevent="removeItem(item)">
+                              <i class="fa fa-times"></i>
+                          </a>
+                          </div>
+
+                        </div>
+
                     </td>
                     
 
@@ -51,9 +99,9 @@
                   <tr>
                       <td class="border-bottom-0"></td>
                       <td class="border-bottom-0"></td>
-                      <td>小計</td>
-                      <td>{{totalPrice|currency}}</td>
                       <td></td>
+                      <td >小計</td>
+                      <td class="text-right">{{totalPrice|currency}}</td>
                   </tr > 
                     
                   </tbody>
@@ -66,11 +114,10 @@
               </div>
               <div>
                  <div class="cartOp">
-                   <div class="toShop" >
-                       <router-link class="link" :to="{name:'Category',params:{category:'allproduct'}}" >繼續購物</router-link>
-                   </div>
-                   <div class="goCheckout">
-                       <div @click.prevent="goCheckout" >結帳</div>
+                       <router-link class="link toShop" :to="{name:'Category',params:{category:'allproduct'}}" >繼續購物</router-link>
+                
+                   <div @click.prevent="goCheckout" class="goCheckout">
+                       <div >結帳</div>
                    </div>
 
                  </div>
@@ -91,7 +138,7 @@
        </div>
       </div>
   
-
+   </div>
 </template>
 
 
@@ -229,23 +276,37 @@ export default {
 </script>
 
 <style scoped>
+  .pro_bg{
+    padding-bottom: 100px;
+    background-color: #f5f4f1;
+  }
+  .container{
+      margin-top: 70px;
+    margin-bottom: 30px;
+  }
 
 .cart_page{
-  margin-top: 100px;
-  padding: 100px 0;
-  background-color: #f5f4f1;
+  /* margin-top: 100px; */
+  /* padding: 100px 0; */
+  /* background-color: #f5f4f1; */
 }
-@media(max-width:767px){
+/* @media(max-width:767px){
     .cart_page{
         margin-top: 80px;
 
     }
-}
+} */
 
 
 #shopping-cart td,#shopping-cart th{
   padding: 10px;
   border-bottom: 1px solid #000;
+}
+@media(max-width:767px){
+    #shopping-cart td,#shopping-cart th{
+      border-bottom: none;
+
+    }
 }
 .cartOp{
     display: flex;
@@ -253,12 +314,75 @@ export default {
     align-items: flex-end;
 
 }
+
 @media(max-width:767px){
+    .t_head{
+        display: none;
+        /* display: block; */
+
+    }
+}
+.cart-item{
+    display: flex;
+    align-items: center;
+
+}
+
+/* @media(max-width:767px){
     .cart-item{
         display: flex;
         flex-direction: column;
 
     }
+} */
+@media(max-width:767px){
+    .order_price,.order_qty,.order_total,.order_delete,.cart-item{
+        display: none;
+
+    }
+}
+.mobile_show{
+    display: none;
+    
+}
+
+@media(max-width:767px){
+    .mobile_show{
+        display: block;
+        width: 100px;
+    }
+
+}
+.cart-item{
+    width: 100%;
+}
+.cart-img{
+    max-width: 160px;
+    margin-right: 10px;
+}
+@media(max-width:767px){
+   .cart-img{
+    width: 100%;
+    max-width: 230px;
+    min-width: 150px;
+    margin-right:50px;
+}
+}
+
+.mobile_right{
+    min-width: 100px;
+    margin-right: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+}
+@media(max-width:575px){
+    .mobile_right{
+    margin-right: 60px;
+
+}
 }
 
 .toShop,.goCheckout{
