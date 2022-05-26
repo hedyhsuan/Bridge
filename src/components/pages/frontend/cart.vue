@@ -78,6 +78,7 @@
                                 class="form-control"
                                 v-model.number="item.qty"
                                 @change="updateCart()"
+                                @enter="getTotalPr()"
                               />
                             </div>
                             <!-- 小計 -->
@@ -217,6 +218,7 @@ export default {
                 console.log(vm.allCart)
             })
         },
+
         updateCart(){
             const vm=this;
             vm. getTotalPr()
