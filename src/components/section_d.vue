@@ -89,6 +89,111 @@
 </template>
 
 <style scoped>
+/* section_d---------------------------------- */
+.section_d{
+  margin: 0 0 100px;
+}
+@media (max-width:767px){
+  .section_d{
+    margin:50px 0 100px ;
+
+  }
+   
+}
+.sortIteml{
+
+ overflow: hidden;
+}
+.sortIteml>a>img{
+  width: 100%;
+}
+
+/* .sortItems{
+  padding: 0 15px;
+  margin-bottom: 20px;
+} */
+.sortItem{
+  position: relative;
+  height: auto;
+  padding: 0;
+  padding: 0 15px ;
+}
+
+
+.category_bg{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: black;
+  text-align: center;
+
+}
+.category{
+  position: absolute;
+  width: 100%;
+  top: 50%;
+}
+
+
+
+.category>h3{ 
+  
+  color: #fff;
+  transition: 0.3s ease-in-out;
+}
+
+.category_bg:hover .category>h3{
+  
+    font-size: 1.5rem;
+  
+}
+@media(max-width:991px){
+  .category>h3{
+    font-size: 1.5rem;
+  }
+  .category_bg:hover .category>h3{
+      font-size: 1.25rem;
+  }
+}
+
+.category_bg>a>img{
+  width: 100%;
+  height: auto;
+  opacity: 1;
+  transition: 0.5s;
+ 
+}
+.category_bg>a>img:hover{
+  opacity: .7;
+  transform: scale(1.1);
+}
+
+
+.sortIteml-1{
+  margin-top: 25px;
+}
+.sortIteml-2{
+  margin-bottom: 25px;
+}
+@media (max-width:767px){
+  .sortIteml-1{
+    margin: 0;
+  }
+  .sortIteml-2{
+    margin-top: 25px;
+  }
+}
+
+
+.sortIteml>div>a>img{
+  width: 100%;
+  height: auto;
+}
+@media (max-width:767px){
+  .sortItem{
+    padding: 0 15px 25px;
+  }
+}
 .prodtext{
   padding: 20px 15px;
 }
