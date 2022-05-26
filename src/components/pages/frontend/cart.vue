@@ -70,7 +70,7 @@
                              <!-- 數量 -->
                             <div class="mobile_order_qty ">
                             <input
-                               oninput="if(value>20)value=20;if(value<1)value=1"
+                               oninput="if(value>20)value=20;if(value<1)value=''"
                                value=""
                                 min="1"
                                 max="20"
@@ -78,7 +78,7 @@
                                 class="form-control"
                                 v-model.number="item.qty"
                                 @change="updateCart()"
-                                @enter="getTotalPr()"
+                                @enter="updateCart()"
                               />
                             </div>
                             <!-- 小計 -->
@@ -159,7 +159,11 @@ export default {
         allCart:[],
         //後台儲存的商品資料
         totalPrice:0,
-        num:0 
+        num:0 ,
+        item:{
+            qty:''
+        }
+
 
         
     };
@@ -182,7 +186,7 @@ export default {
             })
         },
 
-        getTotalPr(){
+        getTotalPr(){           
             const vm=this;
             vm.totalPrice=0;
             vm.tempData.forEach((item)=>{
@@ -221,10 +225,8 @@ export default {
 
         updateCart(){
             const vm=this;
-            vm. getTotalPr()
-
-            localStorage.setItem('tempData', JSON.stringify(vm.tempData))
-
+             localStorage.setItem('tempData', JSON.stringify(vm.tempData))
+            vm. getTotalPr()           
             this.$emit('localData');
             //觸發父層dashBoard.vue的購物車數字更新
 
@@ -330,13 +332,6 @@ export default {
 
 }
 
-/* @media(max-width:767px){
-    .cart-item{
-        display: flex;
-        flex-direction: column;
-
-    }
-} */
 @media(max-width:767px){
     .order_price,.order_qty,.order_total,.order_delete,.cart-item{
         display: none;
