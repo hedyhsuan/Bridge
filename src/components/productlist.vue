@@ -111,3 +111,13 @@ export default {
 }
 
 </script>
+<style scoped>
+.product-image:hover .image>img{
+  transform: scale(1.1);
+}
+.image>img{
+   transition: 0.5s;
+}
+ 
+
+</style>
