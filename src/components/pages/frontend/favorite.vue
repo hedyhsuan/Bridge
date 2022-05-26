@@ -85,7 +85,7 @@ export default {
 <style scoped>
 
 .bannerImg{
-  object-position: center -200px
+  /* object-position: center -200px */
 
 }
 @media(max-width:767px){

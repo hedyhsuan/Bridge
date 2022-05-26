@@ -9,7 +9,7 @@
             </div>
 
              <div class="container" v-if="totalPrice>0">
-                <h4>購物車</h4>
+                <h5 class="pl-2">購物車</h5>
                 <form action="">
                  <table class="w-100" id="shopping-cart" >
                  <thead class="t_head">
