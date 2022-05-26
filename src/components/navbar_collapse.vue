@@ -4,11 +4,19 @@
 
     <div 
     :class="{categories__backdrop:bgblur}" 
-    @click="bgblur=false"></div>
+    ></div>
+    <!-- 當bgblur為真的時候加進.categories__backdrop -->
+    <!-- @click="bgblur=false" -->
                  <!-- 漢堡內容 -->
     <div >
         
-     <div class="collapse" :class="{navbar_collapse:bgblur===true}" id="nav">
+     <div class="collapse" :class="{navbar_collapse:bgblur}" id="nav">
+       <div class="text-right">
+           <a href="" @click.prevent="bgblur=false">
+             <i class="fa fa-times"></i>
+           </a>
+       </div>
+                        
           <ul class="navbar-nav mx-auto">
 
                 <li 
@@ -103,6 +111,7 @@ export default {
             this.bgblur=true;
          
         })
+        //接收dashboard的btn觸發背景
     },
 }
 </script>

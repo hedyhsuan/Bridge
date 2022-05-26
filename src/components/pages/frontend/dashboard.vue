@@ -1,10 +1,12 @@
 <template>
     <div>
+
                   
       <header class="nav_list navbar-dark fixed-top">
-            <div class="" >
+            <div class="nav_logo " >
                 <router-link :to="{name: 'Index'}">
-                <div class="nav_logo " >
+                <div class="w-100" >
+                  <img class="w-100" src="https://imgur.com/6srQSzC.png" alt="">
                  </div>
                 </router-link>
                
@@ -18,6 +20,16 @@
               </span>
             </button>
           </div> 
+
+        <!-- <div class="" >
+          <router-link :to="{name: 'Index'}">
+          <div class="nav_logo " >
+            <img src="https://imgur.com/6srQSzC.png" alt="">
+
+            </div>
+          </router-link>   
+        </div> -->
+          
 
           <div>
            <div class="cart" >
@@ -44,12 +56,12 @@
          </div>     
    
       </header>
+      <div class="bg-overlay">
+      </div>
       <div class="row">
         <NavbarCollapse @SourceClick='goRouter()'> </NavbarCollapse>
       </div>
-      <div class="bg-overlay">
 
-      </div>
 
       <router-view  @localData="getTempdata"  @getFavorite="getFavorite"  ref='target'></router-view>
 
@@ -163,6 +175,7 @@ export default {
         backgroungblur(){
            bus.$emit('backgroungblur')
         },
+       //點擊觸發navbar_collapse背景
 
         getTempdata(){
           const vm=this;
@@ -207,7 +220,22 @@ export default {
 
 <style scoped>
 .nav_logo{
-  background-image: url(https://imgur.com/KEpy64s.png);
+  width: 160px;
+  height: auto;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+@media(max-width:575px){
+  .nav_logo{
+    width: 145px;
+  
+  }
+}
+/* .nav_logo{
+  background-image: url(https://imgur.com/6srQSzC.png);
   background-size: contain;
   background-repeat: no-repeat;
   width: 300px;
@@ -216,27 +244,27 @@ export default {
   top:50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-@media(max-width:991px){
+} */
+/* @media(max-width:991px){
   .nav_logo{
     width: 250px;
     height: 45px;
   
   }
-}
-@media(max-width:767px){
+} */
+/* @media(max-width:767px){
   .nav_logo{
       width: 200px;
     height: 40px;
   }
-}
-@media(max-width:575px){
+} */
+/* @media(max-width:575px){
   .nav_logo{
     top:60%;
     width: 150px;
     height: 35px;
   }
-}
+} */
 
 
 .nav_list{

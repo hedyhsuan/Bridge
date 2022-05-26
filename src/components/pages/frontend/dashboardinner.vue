@@ -8,6 +8,7 @@
           <div class="sectionb">
             <div class="Catepromote row" >
               <div class="col-12 col-md-5 ">
+                <!-- 左方圖片 -->
                 <div class="X_left " data-aos='fade-left' data-aos-duration="2000" data-aos-once="true">
                   <div class="promo-inner_1">
                     <router-link  class="dec-cover" :to="`/products/Bedding`"></router-link>
@@ -15,7 +16,7 @@
                   </div>
                 </div>
               </div>
-
+                <!-- 右方文字 -->
               <div class="promo-inner_2 col-12 col-md-7 ">
                 <div>  
                   <h4>打造舒眠天地</h4>
@@ -207,24 +208,72 @@ export default {
     padding-bottom:35px ;
     border-bottom: 2px solid #E8E5DF;
   }
+
+
+
+
+/* sectionC */
+.line{
+  width: 2px;
+  height:80px;
+  background-color: rgba(34, 34, 34, 0.7);
+  margin: auto;
+
+}
+.sectionC{
+  margin-top:50px;
+}
+@media (max-width:575px){
+  .sectionC {
+     padding: 0 10px;
+  }
+}
+
+
+.c-content{
+  /* width: 80%; */
+  margin: 40px 60px;
+}
+
+.sectionCImg>div>a>img{
+  width: 100%;
+}
+@media (max-width:767px){
+  .sectionCImg>div>a>img{
+    margin-top: 50px;
+  }
+}
+@media (max-width:767px){
+  .sectionCImg_d{
+    display: none;  
+  }
+}
+
+
   .sectionD{
     margin-top: 200px;
-    height: 500px;
+    /* height: 500px; */
     overflow: hidden;
   }
     @media(max-width:991px){
     .sectionD{
       margin-top: 75px;
-      height: 700px;
+      /* height: 700px; */
     }
 
   }
       @media(max-width:767px){
     .sectionD{
       margin-top: 75px;
-      height: 600px;
+      /* height: 600px; */
     }
 
+  }
+  @media(max-width:575px){
+    .sectionD{
+      padding: 0 10px;
+ 
+    }
   }
 
   .garden_text{
