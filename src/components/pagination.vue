@@ -47,7 +47,8 @@ export default {
     props:{
       page:{
         type:Object,
-        default:{},
+        //直接定義物件跳錯，"对象和数组接收格式均以函数的形式"
+        default:()=>{return{}},
         requied:true
       }
     },
