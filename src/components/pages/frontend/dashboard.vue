@@ -230,7 +230,7 @@ export default {
 }
 @media(max-width:575px){
   .nav_logo{
-    width: 145px;
+    width: 130px;
   
   }
 }
