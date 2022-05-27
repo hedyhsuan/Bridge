@@ -13,7 +13,7 @@
                   <CategorySidebar></CategorySidebar>
                 </div>
 
-                <div class="col-md-9 "  data-aos='fade-down' data-aos-duration="1000" data-aos-once="true">
+                <div class="col-md-9 row"  data-aos='fade-down' data-aos-duration="1000" data-aos-once="true">
                      <div v-if="favorite.length===0" class="col-12 pt-1 mb-3 text-center">
                          <div class="mt-5 mb-5">
                         <h5>目前沒有關注商品</h5>
