@@ -33,11 +33,6 @@
 
           <div>
            <div class="cart" >
-             <!-- <li class="cart_2">
-                <a href="">
-                    <i class="fas fa-user" style="font-size:20px;"></i>
-                 </a>
-             </li> -->
              <div class="cart_1">
                 <router-link :to="{name: 'Favorite'}">
                   <i class="fas fa-heart"  style="font-size:20px;"></i>
@@ -182,6 +177,10 @@ export default {
           vm.tempData=JSON.parse(localStorage.getItem('tempData'))|| [];
           vm.cartQuantity=0;
           vm.tempData.forEach((item)=>{
+            if(item.qty==""){
+              item.qty=1
+
+            }
           vm.cartQuantity+=item.qty   
 
         })

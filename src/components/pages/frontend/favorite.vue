@@ -59,6 +59,7 @@ export default {
     methods: {
         getProducts(){
             getAllProductsAPI().then((res)=>{
+                console.log("FAV被觸發")
                 this.allProducts=res.data.products;
                 this.allProducts.forEach((item)=>{
                     this.favorite.forEach((item2)=>{
