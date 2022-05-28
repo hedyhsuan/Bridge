@@ -80,7 +80,7 @@ export default new VueRouter({
             children:[
                 {
                   name:'Index', 
-                  path:'/', 
+                  path:'/index', 
                   component:Dashboardinner, 
 
                 },
@@ -135,7 +135,7 @@ export default new VueRouter({
         },
         {
           path:'*',
-          redirect: '/',
+          redirect: '/index',
             //如果進入未定義的頁面就重導到首頁
             
         },
