@@ -97,6 +97,7 @@ export default {
     },
     created() {
       this.activeName=this.$route.params.category
+      //儲存轉址帶進來的params做為選項active
     },
     
 }
