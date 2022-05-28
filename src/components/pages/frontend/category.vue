@@ -78,6 +78,7 @@ export default {
       getProducts(page){
         this.category=this.$route.params.category
         if (this.category==='allproduct'){
+          console.log("getAll")
            getProductsAPI(page).then((res)=>{
                this.products=res.data.products;
                this.pagination=res.data.pagination;
@@ -95,10 +96,14 @@ export default {
          //把原本的資料清空
            this.pagination=res.data.pagination;
           this.allProducts.forEach((item)=>{
+
           if(item.category == this.category){
+            console.log("getCategory")
+   
             this.products.push(item)
           }else if(this.category ==='sale' ){
             if(item.original_price !== item.price){
+              console.log("getSale")
               this.products.push(item)
               }
           }
