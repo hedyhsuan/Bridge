@@ -122,7 +122,6 @@ export default {
     },
     methods: {
       contactInfo(){
-
       window.scrollTo( 0, 1000 );
     },
     

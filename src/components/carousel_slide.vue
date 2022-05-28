@@ -100,7 +100,7 @@ export default {
     // 監聽外層傳進來的category跟productId的值，確認接收到之後再用該資料去渲染畫面
     //TODO
     created() {
-        if(this.$route.path=="/"){
+        if(this.$route.path=="/index"){
              this.getProducts()  
         }
         //此用於渲染首頁輪播圖的created()會影響到上面category監聽，所以要判別是否路徑為首頁

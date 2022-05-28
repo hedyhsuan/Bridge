@@ -7,7 +7,7 @@
                  class="list-grounp-item" 
                  :class="{active:activeName == item.nameEn}"
                  @click="getProducts(item.nameEn)">
-                <router-link :to="{name:'Category',params:{category:item.nameEn}}">{{item.categoryName }}</router-link>
+                <router-link class="router_link" :to="{name:'Category',params:{category:item.nameEn}}">{{item.categoryName }}</router-link>
                   </li>
                   <!-- <router-link :to="`/products/${item.nameEn}`">{{item.categoryName }}</router-link> -->
           
@@ -74,6 +74,7 @@ export default {
     methods: {
 
       getProducts(category){
+        console.log("只有更換類別")
         //傳進類別作.active的觸發(及轉址用)
         this.activeName=category
         // this.$router.push(`/products/${cate}`)
@@ -108,8 +109,13 @@ export default {
   font-size: 18px;
   
 }
+.router_link{
+display: block;
+padding: 7px 15px;
+
+}
 .list-grounp-item {
-  padding: 7px 15px;
+  /* padding: 7px 15px; */
   cursor: pointer;
   transition: all ease-in .5;
   color: #3A3A3A;
