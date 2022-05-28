@@ -1,14 +1,16 @@
 <template>
     <div>
         <div class="pro_bg">
-          <div class="cart_page">
-                       <div class="col-12 p-0">
+                      <div class="col-12 p-0">
                 <div class="productBanner">
-                    <img class="bannerImg w-100" src="https://imgur.com/tYFmCeI.jpg" alt="">
+                    <img class="bannerImg w-100" src="https://imgur.com/JlRsPez.jpg" alt="">
                 </div>
             </div>
 
-             <div class="container" v-if="totalPrice>0">
+          <div class="cart_page container" data-aos='fade-down' data-aos-duration="1000" data-aos-once="true">
+  
+
+             <div class="" v-if="totalPrice>0">
                 <h5 class="pl-2">購物車</h5>
                 <form action="">
                  <table class="w-100" id="shopping-cart" >
@@ -33,17 +35,18 @@
 
                       <td class="order_price">{{item.price|currency}}</td>
                       <td class="text-center order_qty">
-                         <input
-                         oninput="if(value>20)value=20;if(value<1)value=1"
-                         value=""
-                          min="1"
-                          max="20"
-                          type="number"
-                          class="form-control"
-                          v-model.number="item.qty"
-                          @change="updateCart()"
-                  
-                        />
+                            <input
+                               oninput="if(value>20)value=20;"
+                               onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
+                               value=""
+                                min=""
+                                max="20"
+                                type="number"
+                                class="form-control"
+                                v-model.number="item.qty"
+                                @change="updateCart()"
+                              
+                              />
                       </td>
                       <td class="text-center order_total">{{item.price*item.qty|currency}}</td>
                       <td class="text-center order_delete">
@@ -70,16 +73,19 @@
                              <!-- 數量 -->
                             <div class="mobile_order_qty ">
                             <input
-                               oninput="if(value>20)value=20;if(value<1)value=''"
+                               oninput="if(value>20)value=20;"
+                               onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
                                value=""
-                                min="1"
+                                min=""
                                 max="20"
                                 type="number"
                                 class="form-control"
                                 v-model.number="item.qty"
                                 @change="updateCart()"
-                                @enter="updateCart()"
+                              
                               />
+                                <!-- @enter="updateCart(item.qty)" -->
+                               <!-- @change="updateCart()" -->
                             </div>
                             <!-- 小計 -->
                         <div class="mobile_order_total ">小計:{{item.price*item.qty|currency}}</div>
@@ -127,12 +133,16 @@
           </div>
 
           <div v-else class="text-center">
-              <div class="mb-5">
+              <div class="col-12">
+                <div class="mt-5 mb-5">
                   <h5>
                   購物車內尚無商品
                   </h5>
-              </div >
+                </div >
               <router-link :to="{name: 'Index'}" class="btn btn-dark">回到首頁</router-link>
+
+          </div>
+            
 
           </div>
 
@@ -190,6 +200,10 @@ export default {
             const vm=this;
             vm.totalPrice=0;
             vm.tempData.forEach((item)=>{
+                if(item.qty==""){
+                  item.qty=1
+                  //如果輸入的內容是空白就定義為1
+            }
                 vm.totalPrice+=item.price*item.qty
             })
             
@@ -244,6 +258,11 @@ export default {
 
             // localStorage資料存進後台
             this.tempData.forEach((item)=>{
+             if(item.qty==""){
+              item.qty=1
+            }
+             //如果輸入的內容是空白就定義為1
+
               const cartLocalstorage={
                 product_id:item.product_id,
                 qty:item.qty
@@ -430,6 +449,14 @@ export default {
 
   outline: 0;
 
+}
+.bannerImg{
+  object-position: center -150px
+}
+@media(max-width:575px){
+.bannerImg{
+  object-position: center 0
+}
 }
 
     
