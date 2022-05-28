@@ -73,9 +73,9 @@ export default {
     },
     methods: {
 
-      getProducts(cate){
+      getProducts(category){
         //傳進類別作.active的觸發(及轉址用)
-        this.activeName=cate
+        this.activeName=category
         // this.$router.push(`/products/${cate}`)
         this.$emit('getProduct'); 
          // 發送去父層更新頁面

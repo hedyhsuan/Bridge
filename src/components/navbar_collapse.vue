@@ -17,7 +17,7 @@
            </a>
        </div>
                         
-          <ul class="navbar-nav mx-auto">
+          <ul class="navbar-nav mx-auto mt-4">
 
                 <li 
                  v-for="item in categoryList" 
