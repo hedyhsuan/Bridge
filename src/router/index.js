@@ -13,14 +13,12 @@ import Checkout from "@/components/pages/frontend/checkout"
 import Orderlist from "@/components/pages/backend/orderlist"
 // import Orderdetail from "@/components/pages/backend/orderdetail"
 // 引入時不用加副檔名.vue
-
 import Category from "@/components/pages/frontend/category"
 import SingleProduct from "@/components/pages/frontend/singleProduct"
-
-
 import Policy from "@/components/pages/frontend/policy"
 import CustomOrderlist from "@/components/pages/frontend/customorderlist"
-import favorite from "@/components/pages/frontend/favorite.vue"
+import Favorite from "@/components/pages/frontend/favorite"
+import PageError from "../components/pages/frontend/pageError"
 //自訂的元件分頁
 
 Vue.use(VueRouter);
@@ -62,15 +60,6 @@ export default new VueRouter({
                     meta:{ requiresAuth:true}
             
                   },
-                  // {
-                  //   name:'Orderdetail', 
-                  //   path:'orderdetail/:orderId', 
-                  //   component:Orderdetail, 
-
-                  //   meta:{ requiresAuth:true}
-            
-                  // },
-
              ]
         },
         {
@@ -95,7 +84,7 @@ export default new VueRouter({
                 {
                   name:'Favorite', 
                   path:'favorite', 
-                  component:favorite, 
+                  component:Favorite, 
             
                 },
 
@@ -122,6 +111,13 @@ export default new VueRouter({
                   path:'customorderlist/:orderId', 
                   component:CustomOrderlist, 
                     },
+                                    
+                    {
+                      name:'PageError', 
+                      path:'pageerror', 
+                      component:PageError, 
+    
+                        },   
             
                                 
                 {
@@ -129,6 +125,7 @@ export default new VueRouter({
                   path:':id', 
                   component:SingleProduct,   
                     },
+
  
             ]
 

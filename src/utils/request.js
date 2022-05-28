@@ -73,14 +73,23 @@ service.interceptors.response.use(response => {
   
 }, error => {
   endLoading();
-  
-  if(error.response.status == 500){
-    alert("伺服器端出錯")
+  if(error.response){
+    switch(error.response.status){
+      case '400':
+      case '404':
+        router.push({path: "/pageerror"});
+        break;
+      case '500':
+        alert("伺服器端出錯")
+        break;
 
-  }else{
-    router.push({path: "/"});
+      default:
+        router.push({path: "/index"});
+        break;
+
+
+    }
   }
-
   return Promise.reject(error);
 })
 
