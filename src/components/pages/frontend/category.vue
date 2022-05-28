@@ -98,7 +98,7 @@ export default {
           this.allProducts.forEach((item)=>{
 
           if(item.category == this.category){
-            console.log("item.category")
+            console.log(item.category)
    
             this.products.push(item)
           }else if(this.category ==='sale' ){
