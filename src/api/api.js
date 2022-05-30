@@ -109,8 +109,8 @@ export function updateBsProductAPI(id,data){
     return service.put(`${resquest}api/${process.env.CUSTOMPATH}/admin/product/${id}`,data)
 }
 //更新後台優惠券
-export function updateBscCouponAPI(id,data){
-    return service.put(`${resquest}api/${process.env.CUSTOMPATH}/admin/coupons/${id}`,data)
+export function updateBsCouponAPI(id,data){
+    return service.put(`${resquest}api/${process.env.CUSTOMPATH}/admin/coupon/${id}`,data)
 }
 //更新訂單
 export function updateOrderDetailAPI(id,data){

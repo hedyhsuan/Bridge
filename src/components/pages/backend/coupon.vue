@@ -187,7 +187,7 @@
 
 <script>
 import pagination from "../../pagination.vue"
-import {addCouponAPI,deleteBsCouponAPI,logoutAPI,getBsCouponAPI,updateBscCouponAPI} from '../../../api/api'
+import {addCouponAPI,deleteBsCouponAPI,logoutAPI,getBsCouponAPI,updateBsCouponAPI} from '../../../api/api'
 export default {
       components:{
       pagination
@@ -230,7 +230,7 @@ export default {
     },
 
     updateCoupon(){
-      updateBscCouponAPI(this.tempCoupon.id,{data:this.tempCoupon}).then((res)=>{ 
+      updateBsCouponAPI(this.tempCoupon.id,{data:this.tempCoupon}).then((res)=>{ 
         if(res.data.success){
           $("#productModal").modal('hide');
           this.getCoupon();
