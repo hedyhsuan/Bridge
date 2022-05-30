@@ -117,6 +117,9 @@ export default {
 </script>
 
 <style scoped>
+.nav-link{
+  display: block;
+}
   .nav-link:hover{
      font-weight: 500;
      color: #3A3A3A;
